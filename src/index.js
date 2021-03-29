@@ -6,8 +6,13 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
+      {/*Здесь добавляются компонениты */}
     <App />
+
+
+
   </React.StrictMode>,
+    // добавляем в index.html с index root
   document.getElementById('root')
 );
 
