@@ -1,0 +1,43 @@
+.loginForm {
+    border: 3px solid #f1f1f1;
+    width: 800px;
+    margin: 20px auto;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.containerLoginForm{
+
+}
+
+/* Full-width inputs */
+input[type=text], input[type=password] {
+    width: 200px;
+    padding: 6px 10px;
+    margin: 8px auto;
+    display: block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+label{
+    width: 150px;
+}
+
+/* Set a style for all buttons */
+.container button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100px;
+}
+
+/* Add a hover effect for buttons */
+button:hover {
+    opacity: 0.8;
+}

@@ -1,0 +1,50 @@
+
+.formCreateTicket {
+    border: 3px solid #f1f1f1;
+    width: 800px;
+    margin: 20px auto;
+    padding: 50px;
+    display: flex;
+}
+
+.formCenter{
+
+}
+
+
+.link {
+    width: 100px;
+    padding: 5px;
+    margin: 5px;
+    background-color: #4CAF50;
+    color: white;
+}
+
+.link a {
+    display: block; /* Ссылка как блочный элемент */
+    text-align: center; /* Выравнивание по центру */
+    color: white;
+    text-decoration: none;
+}
+
+.link:hover{
+    opacity: 0.8;
+}
+
+label {
+    /* Other styling... */
+    text-align: left;
+    clear: both;
+    float:left;
+    width: 200px;
+}
+
+.formGroup{
+
+}
+
+input{
+    margin: 0;
+    padding: 0;
+}
+
