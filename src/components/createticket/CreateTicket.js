@@ -37,7 +37,7 @@ const CreateTicket = () => {
 
                     <div className={sc.formGroup}>
                         <label htmlFor="description">Description</label>
-                        <input type="text" name="description"/>
+                        <textarea name="description" id="description" cols="30" rows="10"></textarea>
                     </div>
 
                     <div className={sc.formGroup}>
@@ -62,10 +62,12 @@ const CreateTicket = () => {
 
                     <div className={sc.formGroup}>
                         <label htmlFor="comment">Comment</label>
-                        <input type="text" name="comment"/>
+                        <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
                     </div>
 
+                    <div>
                     <button type="submit">Enter</button>
+                    </div>
 
                 </form>
             </div>

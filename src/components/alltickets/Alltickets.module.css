@@ -40,7 +40,7 @@ button:hover {
     display: flex;
 }
 
-.btnChoose button:first-child{
+.btnAllTickets{
     background-color: cornflowerblue;
 }
 

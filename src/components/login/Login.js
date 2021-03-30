@@ -5,7 +5,7 @@ const Login = () => {
     return (
 
         <div>
-            <form className={s.loginForm} action="/all-tickets">
+            <form className={s.form} action="/all-tickets">
                 <div>
                     <p>Login to the Help Desk</p>
                 </div>

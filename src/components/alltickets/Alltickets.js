@@ -16,7 +16,7 @@ const Alltickets = () => {
 
             <div className={s.btnChoose}>
                 <form action="/all-tickets">
-                    <button type="submit">All Tickets</button>
+                    <button type="submit" className={s.btnAllTickets}>All Tickets</button>
                 </form>
                 <form action="/my-tickets">
                     <button type="submit">My Tickets</button>

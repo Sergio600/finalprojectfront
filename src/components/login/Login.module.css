@@ -1,40 +1,36 @@
-.loginForm {
+.form {
     border: 3px solid #f1f1f1;
     width: 800px;
     margin: 20px auto;
     padding: 50px;
     display: flex;
     flex-direction: column;
-    text-align: center;
+    align-items: center;
 }
 
-.containerLoginForm{
-
+.containerLoginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0   auto;
 }
 
 /* Full-width inputs */
 input[type=text], input[type=password] {
     width: 200px;
-    padding: 6px 10px;
+    padding: 5px;
     margin: 8px auto;
-    display: block;
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
 
-label{
-    width: 150px;
+label {
+    width: 100px;
+    padding: 10px 10px;
 }
 
-/* Set a style for all buttons */
-.container button {
+button {
     background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100px;
 }
 
 /* Add a hover effect for buttons */

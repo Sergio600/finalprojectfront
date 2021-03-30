@@ -7,8 +7,19 @@
     display: flex;
 }
 
-.formCenter{
+.formCenter p {
+    text-align: left;
+    margin: 10px;
+    font-size: x-large;
+}
 
+.formCenter div {
+    min-height: 30px;
+}
+
+.formGroup {
+    margin: 5px;
+    padding: 5px;
 }
 
 
@@ -25,26 +36,32 @@
     text-align: center; /* Выравнивание по центру */
     color: white;
     text-decoration: none;
+    font-size: smaller;
 }
 
-.link:hover{
+.link:hover {
     opacity: 0.8;
+}
+
+select, input, textarea{
+    width: 200px;
+    padding: 5px;
+    margin: 8px auto;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
 }
 
 label {
     /* Other styling... */
-    text-align: left;
+    text-align: right;
     clear: both;
-    float:left;
-    width: 200px;
+    float: left;
+    width: 150px;
+    margin: 0px;
 }
 
-.formGroup{
-
+input, select {
+    margin-top: 5px
 }
 
-input{
-    margin: 0;
-    padding: 0;
-}
 

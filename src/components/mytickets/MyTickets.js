@@ -19,7 +19,7 @@ const MyTickets = () => {
                     <button type="submit">All Tickets</button>
                 </form>
                 <form action="/my-tickets">
-                    <button type="submit">My Tickets</button>
+                    <button type="submit" className={s.btnMyTickets}>My Tickets</button>
                 </form>
             </div>
 
