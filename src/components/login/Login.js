@@ -1,11 +1,16 @@
 import React from "react";
 import s from './Login.module.css'
 
-const Login = () => {
-    return (
 
+export class Login extends React.Component{
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return(
         <div>
-            <form className={s.form} action="/all-tickets">
+            <form className={s.form} method action="/all-tickets">
                 <div>
                     <p>Login to the Help Desk</p>
                 </div>
@@ -28,7 +33,9 @@ const Login = () => {
 
             </form>
         </div>
-    )
+        );
+    }
 }
 
-export default Login;
+
+
