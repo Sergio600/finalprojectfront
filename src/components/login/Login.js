@@ -5,6 +5,7 @@ import s from './Login.module.css'
 export class Login extends React.Component{
     constructor(props) {
         super(props);
+        // this.state;
     }
 
     render() {
@@ -29,8 +30,7 @@ export class Login extends React.Component{
 
                 </div>
 
-                <button type="submit">Enter</button>
-
+                <button type="submit" onClick={()=>{alert('hi')}}>Enter</button>
             </form>
         </div>
         );

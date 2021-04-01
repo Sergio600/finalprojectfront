@@ -1,21 +1,16 @@
 import React from "react";
-import sc from './CreateTicket.module.css'
+import sc from "../createTicketPage/CreateTicketPage.module.css";
 
-const CreateTicket = () => {
-    return (
+export class CreateEditTicketForm extends React.Component{
+    constructor(props) {
+        super(props);
+    }
 
-        <div className={sc.formCreateTicket}>
-            <div>
-                <div className={sc.link}>
-                    <a href="/all-tickets">Ticket List</a>
-                </div>
-            </div>
-
+    render() {
+        return (
             <div>
                 <form className={sc.formCenter} action="/all-tickets">
-                    <div>
-                        <p>Create new Ticket</p>
-                    </div>
+
 
                     <div className={sc.formGroup}>
                         <label htmlFor="category">Categoty</label>
@@ -66,13 +61,12 @@ const CreateTicket = () => {
                     </div>
 
                     <div>
-                    <button type="submit">Enter</button>
+                        <button type="submit">Enter</button>
                     </div>
 
                 </form>
             </div>
-        </div>
-    )
-}
+        )
+    }
 
-export default CreateTicket;
+}

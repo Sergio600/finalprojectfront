@@ -1,0 +1,19 @@
+.link {
+    width: 100px;
+    padding: 5px;
+    margin: 5px;
+    background-color: #4CAF50;
+    color: white;
+}
+
+.link a {
+    display: block; /* Ссылка как блочный элемент */
+    text-align: center; /* Выравнивание по центру */
+    color: white;
+    text-decoration: none;
+    font-size: smaller;
+}
+
+.link:hover {
+    opacity: 0.8;
+}
