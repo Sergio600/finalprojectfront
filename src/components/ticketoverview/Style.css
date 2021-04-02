@@ -1,12 +1,40 @@
+.container {
+    border: 3px solid #f1f1f1;
+    width: 800px;
+    margin: 20px auto;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.head{
+    display: flex;
+    flex-direction: row;
+}
+
+.head table {
+    width: 350px;
+}
+
+.category p {
+    text-align: center;
+    margin-top: 150px;
+    font-weight: bolder;
+}
+
+
 .link {
-    width: 100px;
-    padding: 5px;
+    width: 120px;
+    min-height: 20px;
     margin: 5px;
     background-color: #4CAF50;
     color: white;
 }
 
-.link a {
+
+.link a, button {
     display: block; /* Ссылка как блочный элемент */
     text-align: center; /* Выравнивание по центру */
     color: white;
@@ -18,18 +46,39 @@
     opacity: 0.8;
 }
 
-.choosedBtn{
+.history-comments {
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.history-comments-buttons, .tables{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.history-comments table{
+    margin: 0;
+    padding: 0;
+}
+
+
+.history-comments-buttons>button {
+    width:350px;
+    margin: 20px;
+   }
+
+.history-comments-buttons:first-child {
+
+}
+
+.history-comments-buttons>button:focus{
     background-color: cornflowerblue;
+
 }
 
-.hide {
-    display: none;
-}
 
-.table-comments{
- background-color: aquamarine;
-}
 
-.table-history {
-    background-color: bisque;
-}
+

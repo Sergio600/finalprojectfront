@@ -19,9 +19,10 @@ export class TicketOverview extends React.Component {
             <div className="container">
 
                 <div className="head">
-
-                    <div className='link'>
-                        <a href="/all-tickets">Ticket List</a>
+                    <div>
+                        <div className='link'>
+                            <a href="/all-tickets">Ticket List</a>
+                        </div>
                     </div>
 
                     <div className="description">
@@ -30,29 +31,29 @@ export class TicketOverview extends React.Component {
                         </div>
 
                         <table>
-                            <thead>
-                            <tr>
-                                <th>Created on:</th>
-                                <th>Status:</th>
-                                <th>Urgency:</th>
-                                <th>Desired resolution date:</th>
-                                <th>Owner:</th>
-                                <th>Approver:</th>
-                                <th>Assignee:</th>
-                                <th>Attachments:</th>
-                                <th>Description:</th>
-                            </tr>
-                            </thead>
                             <tbody>
-                            <tr>
-                                <td>11/17/2017</td>
-                                <td>Done</td>
-                                <td>High</td>
-                                <td>11/17/2017</td>
-                                <td>Stephen King</td>
-                                <td>Manager 1</td>
-                                <td>Admin 2</td>
-                            </tr>
+                            <td>
+                                <tr>Created on:</tr>
+                                <tr>Status:</tr>
+                                <tr>Urgency:</tr>
+                                <tr>Desired resolution date:</tr>
+                                <tr>Owner:</tr>
+                                <tr>Approver:</tr>
+                                <tr>Assignee:</tr>
+                                <tr>Attachments:</tr>
+                                <tr>Description:</tr>
+                            </td>
+                            <td>
+                                <tr>11/17/2017</tr>
+                                <tr>Done</tr>
+                                <tr>High</tr>
+                                <tr>11/17/2017</tr>
+                                <tr>Stephen King</tr>
+                                <tr>Manager 1</tr>
+                                <tr>Admin 2</tr>
+                                <tr>""</tr>
+                                <tr>""</tr>
+                            </td>
                             </tbody>
                         </table>
                     </div>
@@ -75,21 +76,20 @@ export class TicketOverview extends React.Component {
 
                 <div className="history-comments">
 
-                    <div className='link'>
+                    <div className="history-comments-buttons">
                         <button onClick={() => this.setState({
                             showingHistory: true,
                             showingComments: false
                         })}> History
                         </button>
-                    </div>
 
-                    <div className='link'>
                         <button onClick={() => this.setState({
                             showingHistory: false,
                             showingComments: true
                         })}> Comments
                         </button>
                     </div>
+
 
                     <div className="tables">
                         {this.state.showingHistory ? <TicketHistoryTable/> : null}
