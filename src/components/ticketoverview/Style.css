@@ -17,3 +17,19 @@
 .link:hover {
     opacity: 0.8;
 }
+
+.choosedBtn{
+    background-color: cornflowerblue;
+}
+
+.hide {
+    display: none;
+}
+
+.table-comments{
+ background-color: aquamarine;
+}
+
+.table-history {
+    background-color: bisque;
+}

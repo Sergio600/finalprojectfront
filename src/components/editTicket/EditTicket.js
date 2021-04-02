@@ -3,9 +3,7 @@ import sc from "../createTicketPage/CreateTicketPage.module.css";
 import {CreateEditTicketForm} from "../createEditTicketForm/CreateEditTicketForm";
 
 export class EditTicket extends React.Component{
-    constructor(props) {
-        super(props);
-    }
+
 
     render() {
         return (

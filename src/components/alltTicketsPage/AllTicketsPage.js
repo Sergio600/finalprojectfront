@@ -3,9 +3,7 @@ import s from './AllTicketsPage.module.css'
 import Tickettable from "../tickettable/Tickettable";
 
 export class AllTicketsPage extends React.Component{
-    constructor(props) {
-        super(props);
-    }
+
 
     render() {
         return (

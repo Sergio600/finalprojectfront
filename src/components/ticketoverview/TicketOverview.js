@@ -1,33 +1,36 @@
 import React from "react";
 import Style from './Style.css'
+import {TicketHistoryTable} from "./TicketHistoryTable";
+import {TicketCommentsTable} from "./TicketCommentsTable";
 
 
 export class TicketOverview extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            hide: 'hide'
-        }
+    state = {
+        showingHistory: true,
+        showingComments: false
     }
 
 
-
     render() {
+
+        const {showing} = this.state;
+
         return (
-            <div class="container">
+            <div className="container">
 
-                <div class="head">
+                <div className="head">
 
-                    <div class='link'>
+                    <div className='link'>
                         <a href="/all-tickets">Ticket List</a>
                     </div>
 
-                    <div class="description">
+                    <div className="description">
                         <div className="ticket-name">
                             <p>Ticket (2) - Task2</p>
                         </div>
 
                         <table>
+                            <thead>
                             <tr>
                                 <th>Created on:</th>
                                 <th>Status:</th>
@@ -39,6 +42,8 @@ export class TicketOverview extends React.Component {
                                 <th>Attachments:</th>
                                 <th>Description:</th>
                             </tr>
+                            </thead>
+                            <tbody>
                             <tr>
                                 <td>11/17/2017</td>
                                 <td>Done</td>
@@ -48,86 +53,51 @@ export class TicketOverview extends React.Component {
                                 <td>Manager 1</td>
                                 <td>Admin 2</td>
                             </tr>
+                            </tbody>
                         </table>
                     </div>
 
-                    <div class="category">
+                    <div className="category">
                         <p>Category: <span>Hardware upgrade</span></p>
                     </div>
 
 
-                    <div class="btns">
-                        <div class='link'>
+                    <div className="btns">
+                        <div className='link'>
                             <a href="/ticket-edit">Edit</a>
                         </div>
-                        <div class='link'>
+                        <div className='link'>
                             <a href="/all-tickets">Leave Feedback</a>
                         </div>
                     </div>
 
                 </div>
 
-                <div class="btnsChoose">
-                    <div class='link'>
-                        <a href="/ticket-overview">History</a>
+                <div className="history-comments">
+
+                    <div className='link'>
+                        <button onClick={() => this.setState({
+                            showingHistory: true,
+                            showingComments: false
+                        })}> History
+                        </button>
                     </div>
-                    <div class='link'>
-                        <a href="/ticket-comments">Comments</a>
+
+                    <div className='link'>
+                        <button onClick={() => this.setState({
+                            showingHistory: false,
+                            showingComments: true
+                        })}> Comments
+                        </button>
                     </div>
-                </div>
 
-
-                <div class="table-history-container">
-                    <table>
-                        <tr>
-                            <th>Date</th>
-                            <th>User</th>
-                            <th>Action</th>
-                            <th>Description</th>
-                        </tr>
-
-                        <tr>
-                            <td>Jan 18, 2017 12:16:57</td>
-                            <td>Stephen King</td>
-                            <td>Ticked is created</td>
-                            <td>Ticked is created</td>
-                        </tr>
-
-                        <tr>
-                            <td>Jan 19, 2017 15:13:57</td>
-                            <td>Stephen King</td>
-                            <td>Ticked is edited</td>
-                            <td>Ticked is edited</td>
-                        </tr>
-
-
-                    </table>
-
-
-                    <div class="hide">
-                        <table>
-                            <tr>
-                                <th>Date</th>
-                                <th>User</th>
-                                <th>Comment</th>
-                            </tr>
-
-                            <tr>
-                                <td>Jan 18, 2017 12:16:57</td>
-                                <td>Stephen King</td>
-                                <td>Comment 1</td>
-                            </tr>
-
-                            <tr>
-                                <td>Jan 19, 2017 15:13:57</td>
-                                <td>Manager 1</td>
-                                <td>Comment 2</td>
-                            </tr>
-
-                        </table>
+                    <div className="tables">
+                        {this.state.showingHistory ? <TicketHistoryTable/> : null}
+                        {this.state.showingComments ? <TicketCommentsTable/> : null}
                     </div>
                 </div>
             </div>
+
         );
     }
 }

@@ -2,9 +2,7 @@ import React from "react";
 import sc from "../createTicketPage/CreateTicketPage.module.css";
 
 export class CreateEditTicketForm extends React.Component{
-    constructor(props) {
-        super(props);
-    }
+
 
     render() {
         return (

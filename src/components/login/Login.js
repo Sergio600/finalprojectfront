@@ -3,10 +3,7 @@ import s from './Login.module.css'
 
 
 export class Login extends React.Component{
-    constructor(props) {
-        super(props);
-        // this.state;
-    }
+
 
     render() {
         return(

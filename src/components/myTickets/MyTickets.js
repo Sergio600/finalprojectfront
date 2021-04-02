@@ -8,7 +8,7 @@ const MyTickets = () => {
         <div className={s.form}>
 
             <div className={s.btnCreate}>
-                <form action="/create-ticket">
+                <form action="/ticket-create">
                     <button type="submit">Create New Ticket</button>
                 </form>
             </div>
