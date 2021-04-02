@@ -7,6 +7,7 @@ import {CreateTicketPage} from "./components/createTicketPage/CreateTicketPage";
 import {TicketOverview} from "./components/ticketoverview/TicketOverview";
 import {EditTicket} from "./components/editTicket/EditTicket";
 import {Feedback} from "./components/feedback/Feedback";
+import {FeedbackView} from "./components/feedbackView/FeedbackView";
 
 function App(props) {
 
@@ -24,6 +25,7 @@ function App(props) {
                 <Route path="/ticket-history" component={TicketOverview}/>
                 <Route path="/ticket-overview" component={TicketOverview}/>
                 <Route path="/feedback" component={Feedback}/>
+                <Route path="/feedback-view" component={FeedbackView}/>
 
 
 

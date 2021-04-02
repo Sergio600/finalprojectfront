@@ -1,16 +1,16 @@
 import React from 'react';
-import Style from './StyleFeedback.module.css'
-import HoverRating from "./StarsFeedback";
+import Style from './StyleFeedbackView.module.css'
+import HoverRating from "./StarsFeedbackView";
 
 
-export class Feedback extends React.Component{
+export class FeedbackView extends React.Component {
     render() {
         return (
             <div className={Style.container}>
 
                 <div>
                     <div className={Style.link}>
-                        <a href="/ticket-overview">Back</a>
+                        <a href="/all-tickets">Back</a>
                     </div>
                 </div>
 
@@ -24,21 +24,17 @@ export class Feedback extends React.Component{
                         <div>Please, rate your satisfaction with the solution:</div>
 
                         <div className={Style.start}>
-                            <HoverRating />
+                            <HoverRating/>
                         </div>
 
-                        <div>
-                            <textarea name="textarea" rows="5"/>
+                        <div className={Style.feedbackText}>
+                            <p>Some comment! </p>
                         </div>
                     </div>
 
                 </div>
 
-                <div>
-                    <div className={Style.link}>
-                        <a href="/all-tickets">Submit</a>
-                    </div>
-                </div>
+
             </div>
         );
     }

@@ -9,7 +9,6 @@
 }
 
 
-
 .link {
     width: 120px;
     min-height: 20px;
@@ -30,3 +29,20 @@
 .link:hover {
     opacity: 0.8;
 }
+
+.formFeedback > div {
+    min-height: 50px;
+}
+
+textarea {
+    width: 300px;
+}
+
+.container > div:last-child > div {
+    margin-top: 250px;
+}
+
+label{
+    width: 30px;
+}
+

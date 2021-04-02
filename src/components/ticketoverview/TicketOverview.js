@@ -1,7 +1,7 @@
 import React from "react";
 import {TicketHistoryTable} from "./TicketHistoryTable";
 import {TicketCommentsTable} from "./TicketCommentsTable";
-import Style from './StyleTicketOverview.css'
+import st from './StyleTicketOverview.module.css'
 
 export class TicketOverview extends React.Component {
     state = {
@@ -15,17 +15,17 @@ export class TicketOverview extends React.Component {
         const {showing} = this.state;
 
         return (
-            <div className="container">
+            <div className={st.container}>
 
-                <div className="head">
+                <div className={st.head}>
                     <div>
-                        <div className='link'>
+                        <div className={st.link}>
                             <a href="/all-tickets">Ticket List</a>
                         </div>
                     </div>
 
-                    <div className="description">
-                        <div className="ticket-name">
+                    <div className={st.description}>
+                        <div className={st.ticketName}>
                             <p>Ticket (2) - Task2</p>
                         </div>
 
@@ -62,25 +62,25 @@ export class TicketOverview extends React.Component {
                         </table>
                     </div>
 
-                    <div className="category">
+                    <div className={st.category}>
                         <p>Category: <span>Hardware upgrade</span></p>
                     </div>
 
 
-                    <div className="btns">
-                        <div className='link'>
+                    <div className={st.btns}>
+                        <div className={st.link}>
                             <a href="/ticket-edit">Edit</a>
                         </div>
-                        <div className='link'>
+                        <div className={st.link}>
                             <a href="/feedback">Leave Feedback</a>
                         </div>
                     </div>
 
                 </div>
 
-                <div className="history-comments">
+                <div className={st.historyComments}>
 
-                    <div className="history-comments-buttons">
+                    <div className={st.historyCommentsButtons}>
                         <button onClick={() => this.setState({
                             showingHistory: true,
                             showingComments: false
@@ -95,7 +95,7 @@ export class TicketOverview extends React.Component {
                     </div>
 
 
-                    <div className="tables">
+                    <div className={st.tables}>
                         {this.state.showingHistory ? <TicketHistoryTable/> : null}
                         {this.state.showingComments ? <TicketCommentsTable/> : null}
                     </div>

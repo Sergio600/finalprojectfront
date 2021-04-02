@@ -1,6 +1,6 @@
 import React from "react";
 import s from './MyTickets.module.css'
-import Tickettable from "../tickettable/Tickettable";
+import {Tickettable} from "../tickettable/Tickettable";
 
 const MyTickets = () => {
     return (
