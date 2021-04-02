@@ -1,8 +1,7 @@
 import React from "react";
-import Style from './Style.css'
 import {TicketHistoryTable} from "./TicketHistoryTable";
 import {TicketCommentsTable} from "./TicketCommentsTable";
-
+import Style from './StyleTicketOverview.css'
 
 export class TicketOverview extends React.Component {
     state = {
@@ -102,7 +101,6 @@ export class TicketOverview extends React.Component {
                     </div>
                 </div>
             </div>
-
         );
     }
 }

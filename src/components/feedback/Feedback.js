@@ -1,14 +1,14 @@
 import React from 'react';
-import Style from './Style.css'
+import Style from './StyleFeedback.css'
 
 
 export class Feedback extends React.Component{
     render() {
         return (
-            <div className="container">
+            <div className={Style.container}>
 
                 <div>
-                    <div className='link'>
+                    <div className={Style.link}>
                         <a href="/ticket-overview">Back</a>
                     </div>
                 </div>
@@ -17,6 +17,14 @@ export class Feedback extends React.Component{
 
                     <div className="ticket-name">
                         <p>Ticket (2) - Task2</p>
+                    </div>
+
+                    <div className="form-feedback">
+                        <div>Please, rate your satisfaction with the solution:</div>
+                        <div className="stars"></div>
+                        <div>
+                            <input type="textarea"/>
+                        </div>
                     </div>
 
 
