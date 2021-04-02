@@ -31,7 +31,11 @@ export class TicketOverview extends React.Component {
                         </div>
 
                         <table>
+                            <thead>
+
+                            </thead>
                             <tbody>
+
                             <td>
                                 <tr>Created on:</tr>
                                 <tr>Status:</tr>
@@ -55,6 +59,7 @@ export class TicketOverview extends React.Component {
                                 <tr>""</tr>
                             </td>
                             </tbody>
+
                         </table>
                     </div>
 
@@ -68,7 +73,7 @@ export class TicketOverview extends React.Component {
                             <a href="/ticket-edit">Edit</a>
                         </div>
                         <div className='link'>
-                            <a href="/all-tickets">Leave Feedback</a>
+                            <a href="/feedback">Leave Feedback</a>
                         </div>
                     </div>
 

@@ -6,7 +6,7 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {CreateTicketPage} from "./components/createTicketPage/CreateTicketPage";
 import {TicketOverview} from "./components/ticketoverview/TicketOverview";
 import {EditTicket} from "./components/editTicket/EditTicket";
-import {TicketComments} from "./components/ticketComments/TicketComments";
+import {Feedback} from "./components/feedback/Feedback";
 
 function App(props) {
 
@@ -23,7 +23,8 @@ function App(props) {
                 <Route path="/ticket-edit" component={EditTicket}/>
                 <Route path="/ticket-history" component={TicketOverview}/>
                 <Route path="/ticket-overview" component={TicketOverview}/>
-                <Route path="/ticket-comments" component={TicketComments}/>
+                <Route path="/feedback" component={Feedback}/>
+
 
 
 

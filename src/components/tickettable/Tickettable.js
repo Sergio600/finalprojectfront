@@ -4,7 +4,7 @@ import s from './Tickettable.module.css'
 const Tickettable = (prop) => {
     return (
                 <tr>
-                    <td>{prop.id}</td>
+                    <td>{prop.id} <a href="/ticket-overview">Ticket</a></td>
                     <td>{prop.name}</td>
                     <td>{prop.desireddate}</td>
                     <td>{prop.urgency}</td>
