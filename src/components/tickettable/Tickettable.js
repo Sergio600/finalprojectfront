@@ -4,29 +4,49 @@ import s from './Tickettable.module.css'
 export class Tickettable extends React.Component {
     constructor(props) {
         super(props);
-
     }
 
     render() {
 
-        console.log(this.props.id + " HI ");
-        return (
-            <tr>
-                <td>{this.props.id} <a href="/ticket-overview">Ticket</a></td>
-                <td>{this.props.name}</td>
-                <td>{this.props.desireddate}</td>
-                <td>{this.props.urgency}</td>
-                <td>{this.props.status}</td>
-                <td>
-                    <select name="actionTicket" id="actionTicket">
-                        <option value="submit">Submit</option>
-                        <option value="approve">Approve</option>
-                        <option value="decline">Decline</option>
-                        <option value="cancel">Cancel</option>
-                    </select>
-                </td>
-            </tr>
-        )
 
+        return (
+
+            <table className='s.tableticket'>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Desire Date</th>
+                    <th>Urgency</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                {this.props.tickets.map((ticket, i) => (
+                    <tr key={i}>
+
+                        <td>{ticket.id}</td>
+                        <td><a href="/ticket-overview">{ticket.name}</a></td>
+                        <td>{ticket.desireddate}</td>
+                        <td>{ticket.urgency}</td>
+                        <td>{ticket.status}</td>
+                        <td>
+                            <select name="actionTicket" id="actionTicket">
+
+                                {this.props.actionMenu.map((action, i) => (<option key={i}> {action} </option>))}
+
+                            </select>
+
+                        </td>
+                    </tr>
+                ))}
+
+                </tbody>
+            </table>
+
+        )
     }
 }

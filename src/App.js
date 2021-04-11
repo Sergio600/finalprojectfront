@@ -1,7 +1,7 @@
 import './App.css';
 import {Login} from "./components/login/Login";
 import {AllTicketsPage} from "./components/alltTicketsPage/AllTicketsPage";
-import MyTickets from "./components/myTickets/MyTickets";
+import {MyTickets} from "./components/myTickets/MyTickets";
 import {BrowserRouter, Route} from "react-router-dom";
 import {CreateTicketPage} from "./components/createTicketPage/CreateTicketPage";
 import {TicketOverview} from "./components/ticketoverview/TicketOverview";

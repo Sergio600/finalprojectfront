@@ -6,7 +6,32 @@ import st from './StyleTicketOverview.module.css'
 export class TicketOverview extends React.Component {
     state = {
         showingHistory: true,
-        showingComments: false
+        showingComments: false,
+        ticketHistory: [
+            {
+            date: "Jan 18, 2017 12:16:57",
+            userName: "Stephen King",
+            action: "Ticked is created",
+            description: "Ticked is created"
+        },
+            {
+                date: "Mar 1, 2021 11:11:57",
+                userName: "Stephen King",
+                action: "Ticked is edited",
+                description: "Ticked is edited"
+            }
+        ],
+        ticketComments: [
+            {
+                date: "Jan 18, 2017 12:16:57",
+                userName: "Stephen King",
+                comment: "Comment 1"
+            },
+            {
+                date: "Feb 20, 2018 12:00:57",
+                userName: "Stephen King",
+                comment: "Comment 2"
+            }]
     }
 
 
@@ -31,7 +56,9 @@ export class TicketOverview extends React.Component {
 
                         <table>
                             <thead>
-
+                            <th>
+                                <td>"</td>
+                            </th>
                             </thead>
                             <tbody>
 
@@ -96,9 +123,10 @@ export class TicketOverview extends React.Component {
 
 
                     <div className={st.tables}>
-                        {this.state.showingHistory ? <TicketHistoryTable/> : null}
-                        {this.state.showingComments ? <TicketCommentsTable/> : null}
+                        {this.state.showingHistory ? <TicketHistoryTable ticketHistory={this.state.ticketHistory} /> : null}
+                        {this.state.showingComments ? <TicketCommentsTable ticketComments={this.state.ticketComments}/> : null}
                     </div>
+
                 </div>
             </div>
         );

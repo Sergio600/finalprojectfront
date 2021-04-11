@@ -15,13 +15,12 @@ export class CreateTicketPage extends React.Component {
                     </div>
                 </div>
 
-                <div>
+
+                <div className={sc.formCreate}>
                     <p>Create new Ticket</p>
+
+                    <CreateEditTicketForm/>
                 </div>
-
-
-                <CreateEditTicketForm />
-
             </div>
         );
     }

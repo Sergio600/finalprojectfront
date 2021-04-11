@@ -5,16 +5,11 @@ import Box from '@material-ui/core/Box';
 import Style from './StyleFeedback.module.css'
 
 const labels = {
-    0.5: 'Useless',
-    1: 'Useless+',
-    1.5: 'Poor',
-    2: 'Poor+',
-    2.5: 'Ok',
-    3: 'Ok+',
-    3.5: 'Good',
-    4: 'Good+',
-    4.5: 'Excellent',
-    5: 'Excellent+',
+    1: 'Useless',
+    2: 'Poor',
+    3: 'Ok',
+    4: 'Good',
+    5: 'Excellent',
 };
 
 const useStyles = makeStyles({
@@ -32,10 +27,11 @@ export default function HoverRating() {
 
     return (
         <div className={classes.root}>
+
             <Rating
                 name="hover-feedback"
                 value={value}
-                precision={0.5}
+                precision={1}
                 onChange={(event, newValue) => {
                     setValue(newValue);
                 }}
@@ -44,6 +40,7 @@ export default function HoverRating() {
                 }}
             />
             {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
+
         </div>
     );
 }

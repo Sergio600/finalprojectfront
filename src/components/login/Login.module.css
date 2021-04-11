@@ -16,7 +16,7 @@
 }
 
 /* Full-width inputs */
-input[type=text], input[type=password] {
+input[type=text], input[type=paswsword] {
     width: 200px;
     padding: 5px;
     margin: 8px auto;
@@ -24,7 +24,7 @@ input[type=text], input[type=password] {
     box-sizing: border-box;
 }
 
-label {
+.inputLabel label {
     width: 100px;
     padding: 10px 10px;
 }

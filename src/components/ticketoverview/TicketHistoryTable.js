@@ -1,10 +1,13 @@
 import React from 'react';
 
-export class TicketHistoryTable extends React.Component{
-
+export class TicketHistoryTable extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
     render() {
         return (
+
 
             <div className='table-history'>
                 <table>
@@ -16,21 +19,18 @@ export class TicketHistoryTable extends React.Component{
                         <th>Description</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr>
-                        <td>Jan 18, 2017 12:16:57</td>
-                        <td>Stephen King</td>
-                        <td>Ticked is created</td>
-                        <td>Ticked is created</td>
-                    </tr>
 
-                    <tr>
-                        <td>Jan 19, 2017 15:13:57</td>
-                        <td>Stephen King</td>
-                        <td>Ticked is edited</td>
-                        <td>Ticked is edited</td>
-                    </tr>
+                    <tbody>
+                    {this.props.ticketHistory.map((ticket, i) => (
+                        <tr key={i}>
+                            <td>{ticket.date}</td>
+                            <td>{ticket.userName}</td>
+                            <td>{ticket.action}</td>
+                            <td>{ticket.description}</td>
+                        </tr>
+                    ))}
                     </tbody>
+
                 </table>
             </div>
         );

@@ -28,14 +28,16 @@ export class AllTicketsPage extends React.Component {
                     urgency: 'High',
                     status: "Draft"
                 },
+            ],
 
-            ]
+            actionMenu: ["Submit", "Approve", "Decline", "Cancel"]
         }
-
     }
 
+
     render() {
-        let ticketList;
+
+
         return (
 
             <div className={s.form}>
@@ -56,39 +58,8 @@ export class AllTicketsPage extends React.Component {
                     </form>
                 </div>
 
-                <table className='s.tableticket'>
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Desire Date</th>
-                        <th>Urgency</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {
-                         ticketList = this.state.tickets.map(( (ticket, i) => {
-                            console.log(ticket);
-                            <Tickettable
-                                key={i}
-                                id={ticket.id}
-                                name={ticket.name}
-                                desireddate={ticket.desireddate}
-                                urgency={ticket.urgency}
-                                status={ticket.status}
-                            />
-                        }))
-                    }
-                    {ticketList}
+                <Tickettable tickets={this.state.tickets} actionMenu={this.state.actionMenu}/>
 
-
-                    {/*<Tickettable id='1' name='Task 1' desireddate='11/11/2017' urgency='High' status/>*/}
-                    {/*<Tickettable id='2' name='Task 2' desireddate='01/12/2012' urgency='Low' status='In Progress'/>*/}
-                    {/*<Tickettable id='3' name='Task 3' desireddate='11/01/2019' urgency='High' status='Draft'/>*/}
-                    </tbody>
-                </table>
             </div>
         );
     }
