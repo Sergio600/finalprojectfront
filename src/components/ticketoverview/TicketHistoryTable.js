@@ -1,8 +1,18 @@
 import React from 'react';
+import axios from "axios";
+import moment from "moment";
 
 export class TicketHistoryTable extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            histories: [],
+        }
+    }
+
+    componentDidMount() {
+        axios.get('http://localhost:8080/finalproject/histories')
+            .then(response => this.setState({histories: response.data}))
     }
 
     render() {
@@ -21,14 +31,16 @@ export class TicketHistoryTable extends React.Component {
                     </thead>
 
                     <tbody>
-                    {this.props.ticketHistory.map((ticket, i) => (
+
+                    {this.state.histories.map((history, i) => (
                         <tr key={i}>
-                            <td>{ticket.date}</td>
-                            <td>{ticket.userName}</td>
-                            <td>{ticket.action}</td>
-                            <td>{ticket.description}</td>
+                            <td>{moment(history.date).format("LL")}</td>
+                            <td>{history.ticket.userOwner.lastName}</td>
+                            <td>{history.action}</td>
+                            <td>{history.description}</td>
                         </tr>
                     ))}
+
                     </tbody>
 
                 </table>

@@ -1,39 +1,22 @@
 import React from "react";
 import s from './MyTickets.module.css'
 import {Tickettable} from "../tickettable/Tickettable";
+import axios from "axios";
 
 export class MyTickets extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            tickets: [
-                {
-                    id: 1,
-                    name: "Task 1",
-                    desiredDate: '11/11/2017',
-                    urgency: 'High',
-                    status: "Draft"
-                },
-                {
-                    id: 2,
-                    name: "Task 2",
-                    desiredDate: '04/12/2007',
-                    urgency: 'Low',
-                    status: "In Progres"
-                },
-                {
-                    id: 3,
-                    name: "Task 3",
-                    desiredDate: '01/01/2020',
-                    urgency: 'High',
-                    status: "Draft"
-                },
-
-            ],
+            tickets: [],
 
             actionMenu: ["Submit", "Approve", "Decline", "Cancel", "Leave Feedback", "View Feedback"]
 
         }
+    }
+
+    componentDidMount() {
+        axios.get('http://localhost:8080/finalproject/tickets/all')
+            .then(response => this.setState({tickets: response.data}))
     }
 
     render() {

@@ -2,42 +2,31 @@ import React from "react";
 import {TicketHistoryTable} from "./TicketHistoryTable";
 import {TicketCommentsTable} from "./TicketCommentsTable";
 import st from './StyleTicketOverview.module.css'
+import axios from "axios";
+import moment from "moment";
 
 export class TicketOverview extends React.Component {
-    state = {
-        showingHistory: true,
-        showingComments: false,
-        ticketHistory: [
-            {
-            date: "Jan 18, 2017 12:16:57",
-            userName: "Stephen King",
-            action: "Ticked is created",
-            description: "Ticked is created"
-        },
-            {
-                date: "Mar 1, 2021 11:11:57",
-                userName: "Stephen King",
-                action: "Ticked is edited",
-                description: "Ticked is edited"
-            }
-        ],
-        ticketComments: [
-            {
-                date: "Jan 18, 2017 12:16:57",
-                userName: "Stephen King",
-                comment: "Comment 1"
-            },
-            {
-                date: "Feb 20, 2018 12:00:57",
-                userName: "Stephen King",
-                comment: "Comment 2"
-            }]
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            showingHistory: true,
+            showingComments: false,
+            ticket: {},
+            id: 1,
+        }
     }
 
+
+    componentDidMount() {
+        axios.get('http://localhost:8080/finalproject/tickets/1')
+            .then(response => this.setState({ticket: response.data}))
+    }
 
     render() {
 
         const {showing} = this.state;
+
 
         return (
             <div className={st.container}>
@@ -51,7 +40,7 @@ export class TicketOverview extends React.Component {
 
                     <div className={st.description}>
                         <div className={st.ticketName}>
-                            <p>Ticket (2) - Task2</p>
+                            <p>Ticket {this.state.id} - {this.state.ticket.name}</p>
                         </div>
 
                         <table>
@@ -74,15 +63,15 @@ export class TicketOverview extends React.Component {
                                 <tr>Description:</tr>
                             </td>
                             <td>
-                                <tr>11/17/2017</tr>
-                                <tr>Done</tr>
-                                <tr>High</tr>
-                                <tr>11/17/2017</tr>
-                                <tr>Stephen King</tr>
-                                <tr>Manager 1</tr>
-                                <tr>Admin 2</tr>
-                                <tr>""</tr>
-                                <tr>""</tr>
+                                <tr>{moment(this.state.ticket.createdOn).format("LL")}</tr>
+                                <tr>{this.state.ticket.state}</tr>
+                                <tr>{this.state.ticket.urgency}</tr>
+                                <tr>{moment(this.state.ticket.desiredResolutionDate).format("LL")}</tr>
+                                {/*<tr>{this.state.ticket.userOwner.lastName}</tr>*/}
+                                {/*<tr>{this.state.ticket.userApprover.lastName}</tr>*/}
+                                {/*<tr>{this.state.ticket.userAssignee.lastName}</tr>*/}
+                                <tr>" "</tr>
+                                <tr>{this.state.ticket.description}</tr>
                             </td>
                             </tbody>
 
@@ -90,7 +79,7 @@ export class TicketOverview extends React.Component {
                     </div>
 
                     <div className={st.category}>
-                        <p>Category: <span>Hardware upgrade</span></p>
+                        {/*<p>Category: <span>{this.state.ticket.category.name}</span></p>*/}
                     </div>
 
 
@@ -123,8 +112,10 @@ export class TicketOverview extends React.Component {
 
 
                     <div className={st.tables}>
-                        {this.state.showingHistory ? <TicketHistoryTable ticketHistory={this.state.ticketHistory} /> : null}
-                        {this.state.showingComments ? <TicketCommentsTable ticketComments={this.state.ticketComments}/> : null}
+                        {this.state.showingHistory ?
+                            <TicketHistoryTable ticket={this.state.ticket} /> : null}
+                        {this.state.showingComments ?
+                            <TicketCommentsTable ticket={this.state.ticket}/> : null}
                     </div>
 
                 </div>

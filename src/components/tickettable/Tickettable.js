@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 import s from './Tickettable.module.css'
 
 export class Tickettable extends React.Component {
@@ -11,7 +12,7 @@ export class Tickettable extends React.Component {
 
         return (
 
-            <table className='s.tableticket'>
+            <table className={s.tableticket}>
                 <thead>
                 <tr>
                     <th>ID</th>
@@ -30,14 +31,13 @@ export class Tickettable extends React.Component {
 
                         <td>{ticket.id}</td>
                         <td><a href="/ticket-overview">{ticket.name}</a></td>
-                        <td>{ticket.desiredDate}</td>
+                        <td>{moment(ticket.desiredResolutionDate).format("LL")}</td>
                         <td>{ticket.urgency}</td>
-                        <td>{ticket.status}</td>
+                        <td>{ticket.state}</td>
                         <td>
+
                             <select name="actionTicket" id="actionTicket">
-
                                 {this.props.actionMenu.map((action, i) => (<option key={i}> {action} </option>))}
-
                             </select>
 
                         </td>

@@ -1,6 +1,20 @@
 import React from 'react';
+import axios from "axios";
+import moment from "moment";
 
 export class TicketCommentsTable extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            comments: [],
+        }
+    }
+
+    componentDidMount() {
+        axios.get('http://localhost:8080/finalproject/comments')
+            .then(response => this.setState({comments: response.data}))
+    }
+
     render() {
         return (
             <div className="table-comments">
@@ -14,18 +28,17 @@ export class TicketCommentsTable extends React.Component {
                     </thead>
 
                     <tbody>
-                    {this.props.ticketComments.map((ticket, i) => (
+                    {this.state.comments.map((comment, i) => (
                         <tr key={i}>
-                            <td>{ticket.date}</td>
-                            <td>{ticket.userName}</td>
-                            <td>{ticket.comment}</td>
+                            <td>{moment(comment.date).format("LL")}</td>
+                            <td>{comment.ticket.userOwner.lastName}</td>
+                            <td>{comment.text}</td>
                         </tr>
                     ))}
                     </tbody>
 
                 </table>
             </div>
-
         );
     }
 }
