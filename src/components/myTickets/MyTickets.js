@@ -10,21 +10,21 @@ export class MyTickets extends React.Component {
                 {
                     id: 1,
                     name: "Task 1",
-                    desireddate: '11/11/2017',
+                    desiredDate: '11/11/2017',
                     urgency: 'High',
                     status: "Draft"
                 },
                 {
                     id: 2,
                     name: "Task 2",
-                    desireddate: '04/12/2007',
+                    desiredDate: '04/12/2007',
                     urgency: 'Low',
                     status: "In Progres"
                 },
                 {
                     id: 3,
                     name: "Task 3",
-                    desireddate: '01/01/2020',
+                    desiredDate: '01/01/2020',
                     urgency: 'High',
                     status: "Draft"
                 },

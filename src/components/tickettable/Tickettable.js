@@ -30,7 +30,7 @@ export class Tickettable extends React.Component {
 
                         <td>{ticket.id}</td>
                         <td><a href="/ticket-overview">{ticket.name}</a></td>
-                        <td>{ticket.desireddate}</td>
+                        <td>{ticket.desiredDate}</td>
                         <td>{ticket.urgency}</td>
                         <td>{ticket.status}</td>
                         <td>

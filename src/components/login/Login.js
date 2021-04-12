@@ -29,7 +29,7 @@ export class Login extends React.Component {
         axios.get('http://localhost:8080/finalproject/users/current', this.createHeader()).then((responce) => {
             localStorage.setItem('AuthHeader', JSON.stringify(this.createHeader()));
             localStorage.setItem('User', JSON.stringify(responce.data))
-            history.push('tickets');
+            // history.push('tickets');
         }).catch(error => {
             this.setState({
                 display: 'block',
@@ -54,7 +54,7 @@ export class Login extends React.Component {
         let passRegEx = "()"
         return (
             <div>
-                {localStorage.getItem('AuthHeader') ? <Redirect to={'tickets'}/> :
+                {/*{localStorage.getItem('AuthHeader') ? <Redirect to={'tickets'}/> :*/}
                     <form className={s.form} onSubmit={this.signIn}>
                         <div>
                             <p>Login to the Help Desk</p>
@@ -93,7 +93,7 @@ export class Login extends React.Component {
                         </button>
                         <span className="error-login" style={{display: this.state.display}}>Please make sure you are using a valid email or password</span>
                     </form>
-                }
+                // }
             </div>
         );
     }
