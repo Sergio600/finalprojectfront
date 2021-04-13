@@ -5,6 +5,9 @@ import s from './Tickettable.module.css'
 export class Tickettable extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            id:null,
+        }
     }
 
     render() {
@@ -30,7 +33,7 @@ export class Tickettable extends React.Component {
                     <tr key={i}>
 
                         <td>{ticket.id}</td>
-                        <td><a href="/ticket-overview">{ticket.name}</a></td>
+                        <td><a onClick={()=>{this.setState({id : ticket.id})}} a href="/ticket-overview">{ticket.name}</a></td>
                         <td>{moment(ticket.desiredResolutionDate).format("LL")}</td>
                         <td>{ticket.urgency}</td>
                         <td>{ticket.state}</td>

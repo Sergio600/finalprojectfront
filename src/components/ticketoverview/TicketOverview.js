@@ -13,19 +13,17 @@ export class TicketOverview extends React.Component {
             showingHistory: true,
             showingComments: false,
             ticket: {},
-            id: 1,
+
         }
     }
 
 
     componentDidMount() {
-        axios.get('http://localhost:8080/finalproject/tickets/1')
+        axios.get('http://localhost:8080/finalproject/tickets/' + this.state.id)
             .then(response => this.setState({ticket: response.data}))
     }
 
     render() {
-
-        const {showing} = this.state;
 
 
         return (
@@ -39,44 +37,43 @@ export class TicketOverview extends React.Component {
                     </div>
 
                     <div className={st.description}>
+
                         <div className={st.ticketName}>
                             <p>Ticket {this.state.id} - {this.state.ticket.name}</p>
                         </div>
 
-                        <table>
-                            <thead>
-                            <th>
-                                <td>"</td>
-                            </th>
-                            </thead>
-                            <tbody>
+                        <div className={st.ticketInfoTable}>
+                            <div className={st.ticketInfoHeaders}>
+                                <p>Created on:</p>
+                                <p>Status:</p>
+                                <p>Urgency:</p>
+                                <p>Desired resolution date:</p>
+                                <p>Owner:</p>
+                                <p>Approver:</p>
+                                <p>Assignee:</p>
+                                <p>Attachments:</p>
+                                <p>Description:</p>
+                            </div>
 
-                            <td>
-                                <tr>Created on:</tr>
-                                <tr>Status:</tr>
-                                <tr>Urgency:</tr>
-                                <tr>Desired resolution date:</tr>
-                                <tr>Owner:</tr>
-                                <tr>Approver:</tr>
-                                <tr>Assignee:</tr>
-                                <tr>Attachments:</tr>
-                                <tr>Description:</tr>
-                            </td>
-                            <td>
-                                <tr>{moment(this.state.ticket.createdOn).format("LL")}</tr>
-                                <tr>{this.state.ticket.state}</tr>
-                                <tr>{this.state.ticket.urgency}</tr>
-                                <tr>{moment(this.state.ticket.desiredResolutionDate).format("LL")}</tr>
-                                {/*<tr>{this.state.ticket.userOwner.lastName}</tr>*/}
-                                {/*<tr>{this.state.ticket.userApprover.lastName}</tr>*/}
-                                {/*<tr>{this.state.ticket.userAssignee.lastName}</tr>*/}
-                                <tr>" "</tr>
-                                <tr>{this.state.ticket.description}</tr>
-                            </td>
-                            </tbody>
+                            <div className={st.ticketInfo}>
+                                <p>{moment(this.state.ticket.createdOn).format("LL")}</p>
+                                <p>{this.state.ticket.state}</p>
+                                <p>{this.state.ticket.urgency}</p>
+                                <p>{moment(this.state.ticket.desiredResolutionDate).format("LL")}</p>
+                                <p>""</p>
+                                <p>""</p>
+                                <p>""</p>
+                                {/*<p>{this.state.ticket.userOwner.lastName}</p>*/}
+                                {/*<p>{this.state.ticket.userApprover.lastName}</p>*/}
+                                {/*<p>{this.state.ticket.userAssignee.lastName}</p>*/}
+                                <p>Attachment</p>
+                                <p>{this.state.ticket.description}</p>
 
-                        </table>
+
+                            </div>
+                        </div>
                     </div>
+
 
                     <div className={st.category}>
                         {/*<p>Category: <span>{this.state.ticket.category.name}</span></p>*/}
@@ -113,7 +110,7 @@ export class TicketOverview extends React.Component {
 
                     <div className={st.tables}>
                         {this.state.showingHistory ?
-                            <TicketHistoryTable ticket={this.state.ticket} /> : null}
+                            <TicketHistoryTable ticket={this.state.ticket}/> : null}
                         {this.state.showingComments ?
                             <TicketCommentsTable ticket={this.state.ticket}/> : null}
                     </div>

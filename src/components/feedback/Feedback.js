@@ -36,6 +36,7 @@ export class Feedback extends React.Component{
 
                 <div>
                     <div className={Style.link}>
+                        <button onClick={()=> this.setState()} >Submit</button>
                         <a href="/all-tickets">Submit</a>
                     </div>
                 </div>

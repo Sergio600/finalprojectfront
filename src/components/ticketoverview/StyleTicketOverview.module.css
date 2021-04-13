@@ -76,6 +76,23 @@
     width: 400px;
 }
 
+.ticketName{
+    text-align: left;
+    margin: 20px;
+    font-weight: bolder;
+}
+.ticketInfoTable{
+    width: 500px;
+    display: flex;
+}
+
+.ticketInfoHeaders{
+    text-align: right;
+    margin-right: 10px;
+}
+
+
+
 
 
 
