@@ -5,6 +5,7 @@ import st from './StyleTicketOverview.module.css'
 import axios from "axios";
 import moment from "moment";
 
+
 export class TicketOverview extends React.Component {
     constructor(props) {
         super(props);
@@ -13,14 +14,12 @@ export class TicketOverview extends React.Component {
             showingHistory: true,
             showingComments: false,
             ticket: {},
-
         }
     }
 
-
     componentDidMount() {
-        axios.get('http://localhost:8080/finalproject/tickets/' + this.state.id)
-            .then(response => this.setState({ticket: response.data}))
+        axios.get('http://localhost:8080/finalproject/tickets/'+ this.props.match.params.id)
+            .then(response => this.setState({ticket: response.data}));
     }
 
     render() {
@@ -56,16 +55,15 @@ export class TicketOverview extends React.Component {
                             </div>
 
                             <div className={st.ticketInfo}>
+                                {console.log(this.state.ticket)}
                                 <p>{moment(this.state.ticket.createdOn).format("LL")}</p>
                                 <p>{this.state.ticket.state}</p>
                                 <p>{this.state.ticket.urgency}</p>
                                 <p>{moment(this.state.ticket.desiredResolutionDate).format("LL")}</p>
-                                <p>""</p>
-                                <p>""</p>
-                                <p>""</p>
-                                {/*<p>{this.state.ticket.userOwner.lastName}</p>*/}
-                                {/*<p>{this.state.ticket.userApprover.lastName}</p>*/}
-                                {/*<p>{this.state.ticket.userAssignee.lastName}</p>*/}
+                                <p>{this.state.ticket?.userOwner?.lastName}</p>
+                                <p>{this.state.ticket?.userApprover?.lastName}</p>
+                                <p>{this.state.ticket?.userAssignee?.lastName}</p>
+
                                 <p>Attachment</p>
                                 <p>{this.state.ticket.description}</p>
 
@@ -76,7 +74,7 @@ export class TicketOverview extends React.Component {
 
 
                     <div className={st.category}>
-                        {/*<p>Category: <span>{this.state.ticket.category.name}</span></p>*/}
+                        <p>Category: <span>{this.state.ticket?.category?.name}</span></p>
                     </div>
 
 

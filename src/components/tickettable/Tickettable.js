@@ -1,20 +1,30 @@
 import React from "react";
 import moment from "moment";
-import s from './Tickettable.module.css'
+import s from './Tickettable.module.css';
+import history from "../../history";
 
 export class Tickettable extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            id:null,
+
         }
+
+        this.toOverview = this.toOverview.bind(this);
+    }
+
+    toOverview(id) {
+        var path = '/ticket-overview/' + id;
+        history.push(
+            {
+                pathname: path,
+                state: {ticketId: id}
+            }
+        )
     }
 
     render() {
-
-
         return (
-
             <table className={s.tableticket}>
                 <thead>
                 <tr>
@@ -31,18 +41,15 @@ export class Tickettable extends React.Component {
 
                 {this.props.tickets.map((ticket, i) => (
                     <tr key={i}>
-
                         <td>{ticket.id}</td>
-                        <td><a onClick={()=>{this.setState({id : ticket.id})}} a href="/ticket-overview">{ticket.name}</a></td>
+                        <td value={ticket.id} onClick={() => {this.toOverview(ticket.id)}}>{ticket.name}</td>
                         <td>{moment(ticket.desiredResolutionDate).format("LL")}</td>
                         <td>{ticket.urgency}</td>
                         <td>{ticket.state}</td>
                         <td>
-
                             <select name="actionTicket" id="actionTicket">
                                 {this.props.actionMenu.map((action, i) => (<option key={i}> {action} </option>))}
                             </select>
-
                         </td>
                     </tr>
                 ))}

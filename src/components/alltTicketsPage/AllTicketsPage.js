@@ -3,6 +3,7 @@ import s from './AllTicketsPage.module.css'
 import {Tickettable} from "../tickettable/Tickettable";
 import axios from "axios";
 
+
 export class AllTicketsPage extends React.Component {
     constructor(props) {
         super(props);
@@ -13,10 +14,14 @@ export class AllTicketsPage extends React.Component {
         }
     }
 
-
     componentDidMount() {
-        axios.get('http://localhost:8080/finalproject/tickets/all')
+        axios.get('http://localhost:8080/finalproject/tickets/filter', JSON.parse(localStorage.getItem('AuthHeader')))
             .then(response => this.setState({tickets: response.data}))
+    }
+
+    myTickets (){
+        var user = JSON.parse(localStorage.getItem('User'));
+        var myTicketsArray = [];
     }
 
 
@@ -29,7 +34,6 @@ export class AllTicketsPage extends React.Component {
                         <button type="submit">Create New Ticket</button>
                     </form>
                 </div>
-
 
                 <div className={s.btnChoose}>
                     <form action="/all-tickets">
