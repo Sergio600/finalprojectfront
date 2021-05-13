@@ -40,7 +40,7 @@ button:hover {
     display: flex;
 }
 
-.btnAllTickets{
+.btnAllTickets {
     background-color: cornflowerblue;
 }
 
@@ -53,4 +53,8 @@ button:hover {
 table {
     margin: 10px;
     padding: 20px;
+}
+
+.error {
+    display: none;
 }

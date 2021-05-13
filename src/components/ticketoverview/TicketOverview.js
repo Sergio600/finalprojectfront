@@ -18,8 +18,9 @@ export class TicketOverview extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:8080/finalproject/tickets/'+ this.props.match.params.id)
+        axios.get('http://localhost:8080/finalproject/tickets/'+ this.props.match.params.id, JSON.parse(localStorage.getItem('AuthHeader')))
             .then(response => this.setState({ticket: response.data}));
+        console.log(this.state.ticket);
     }
 
     render() {
