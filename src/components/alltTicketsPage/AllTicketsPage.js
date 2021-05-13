@@ -15,13 +15,15 @@ export class AllTicketsPage extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:8080/finalproject/tickets/filter', JSON.parse(localStorage.getItem('AuthHeader')))
+        axios.get('http://localhost:8080/finalproject/tickets', JSON.parse(localStorage.getItem('AuthHeader')))
             .then(response => this.setState({tickets: response.data}))
     }
 
     myTickets (){
         var user = JSON.parse(localStorage.getItem('User'));
         var myTicketsArray = [];
+
+
     }
 
 

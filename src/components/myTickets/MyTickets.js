@@ -8,14 +8,12 @@ export class MyTickets extends React.Component {
         super(props);
         this.state = {
             tickets: [],
-
             actionMenu: ["Submit", "Approve", "Decline", "Cancel", "Leave Feedback", "View Feedback"]
-
         }
     }
 
     componentDidMount() {
-        axios.get('http://localhost:8080/finalproject/tickets/all')
+        axios.get('http://localhost:8080/finalproject/tickets/filter', JSON.parse(localStorage.getItem('AuthHeader')))
             .then(response => this.setState({tickets: response.data}))
     }
 
