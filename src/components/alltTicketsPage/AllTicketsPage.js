@@ -9,8 +9,7 @@ export class AllTicketsPage extends React.Component {
         super(props);
         this.state = {
             tickets: [],
-            actionMenu: ["Submit", "Approve", "Decline", "Cancel"],
-
+            actionMenu: ["Submit", "Approve", "Decline", "Cancel"]
         }
     }
 
@@ -25,7 +24,6 @@ export class AllTicketsPage extends React.Component {
 
 
     }
-
 
     render() {
         return (
