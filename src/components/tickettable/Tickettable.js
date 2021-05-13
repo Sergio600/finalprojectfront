@@ -2,6 +2,7 @@ import React from "react";
 import moment from "moment";
 import s from './Tickettable.module.css';
 import history from "../../history";
+import axios from "axios";
 
 export class Tickettable extends React.Component {
     constructor(props) {
@@ -12,7 +13,22 @@ export class Tickettable extends React.Component {
             bol: false
         }
 
+        this.compareId = this.compareId.bind(this);
+        this.compareName = this.compareName.bind(this);
+        this.compareDate = this.compareDate.bind(this);
+        this.compareStatus = this.compareStatus.bind(this);
+
+        this.sortById = this.sortById.bind(this);
+        this.sortByName = this.sortByName.bind(this);
+        this.sortByDate = this.sortByDate.bind(this);
+        this.sortByUrgency = this.sortByUrgency.bind(this);
+        this.sortByStatus = this.sortByStatus.bind(this);
+
         this.toOverview = this.toOverview.bind(this);
+
+        this.setBolState = this.setBolState.bind(this);
+
+        this.allTickets = this.allTickets.bind(this);
     }
 
     toOverview(id) {
@@ -25,9 +41,25 @@ export class Tickettable extends React.Component {
         )
     }
 
-    // componentDidMount() {
-    //     this.setDate();
-    // }
+    componentDidMount() {
+        this.setDate();
+    }
+
+    setDate() {
+        axios.get('http://localhost:8080/finalproject/tickets', JSON.parse(localStorage.getItem('AuthHeader')))
+            .then((response) => {
+                this.setState({
+                    content: response.data,
+                    searchContent: response.data
+                })
+                this.sortByDate();
+                this.sortByUrgency();
+            }).catch(error => {})
+    }
+
+    convertToDate(date) {
+        return new Date(date).toLocaleDateString().split(".").join("/");
+    }
 
     allTickets() {
         var content = this.state.content;
@@ -42,7 +74,7 @@ export class Tickettable extends React.Component {
         });
     }
 
-    compareNums(a, b) {
+    compareId(a, b) {
         if (this.state.bol) {
             return b.id - a.id;
         } else {
@@ -59,22 +91,55 @@ export class Tickettable extends React.Component {
     }
 
     compareName(a, b) {
+        var x = a.name.toLowerCase();
+        var y = b.name.toLowerCase();
+
         if (this.state.bol) {
-            return b.desiredResolutionDate - a.desiredResolutionDate;
+            if (x > y) {
+                return 1;
+            } else if (x < y) {
+                return -1;
+            } else {
+                return 0;
+            }
         } else {
-            return a.desiredResolutionDate - b.desiredResolutionDate;
+            if (y > x) {
+                return 1;
+            } else if (y < x) {
+                return -1
+            } else {
+                return 0
+            }
         }
     }
 
-    compareStatus(a,b){
+    compareStatus(a, b) {
+        var x = a.status.toString();
+        var y = b.status.toString();
 
+        if (this.state.bol) {
+            if (x > y) {
+                return 1;
+            } else if (x < y) {
+                return -1;
+            } else {
+                return 0;
+            }
+        } else {
+            if (y > x) {
+                return 1;
+            } else if (y < x) {
+                return -1
+            } else {
+                return 0
+            }
+        }
     }
-
 
 
     sortById() {
         this.setBolState();
-        let arraySotedById = this.state.searchContent.sort(this.compareNums);
+        let arraySotedById = this.state.searchContent.sort(this.compareId);
         this.setState({
             searchContent: arraySotedById,
             content: arraySotedById
@@ -83,29 +148,29 @@ export class Tickettable extends React.Component {
 
     sortByName() {
         this.setBolState();
-        let arraySotedByName = this.state.searchContent.sort(this.compareName);
+        let arraySortedByName = this.state.searchContent.sort(this.compareName);
         this.setState({
-            searchContent: arraySotedByName,
-            content: arraySotedByName
+            searchContent: arraySortedByName,
+            content: arraySortedByName
         })
     }
 
-    sortByStatus(){
+    sortByStatus() {
         this.setBolState();
-        let arraySotedByStatus = this.state.searchContent.sort(this.compareStatus);
+        let arraySortedByStatus = this.state.searchContent.sort(this.compareStatus);
         this.setState(
             {
-                searchContent: arraySotedByStatus
+                searchContent: arraySortedByStatus
             }
         )
     }
-
 
     sortByDate() {
         let sortedArrayByDate = this.state.searchContent.sort(this.compareDate);
         this.setState({
             searchContent: sortedArrayByDate,
         });
+        this.setBolState();
     }
 
     sortByUrgency() {
@@ -136,8 +201,8 @@ export class Tickettable extends React.Component {
         search = [];
 
         let arr = search.concat(arrayCriticalUrgency, arrayHighUrgency, arrayMediumUrgency, arrayLowUrgency);
-        if(!this.state.bol){
-            arr.concat(arrayLowUrgency, arrayMediumUrgency,arrayHighUrgency, arrayCriticalUrgency);
+        if (!this.state.bol) {
+            arr.concat(arrayLowUrgency, arrayMediumUrgency, arrayHighUrgency, arrayCriticalUrgency);
         }
 
         this.setState({
@@ -153,24 +218,24 @@ export class Tickettable extends React.Component {
             <table className={s.tableticket}>
                 <thead>
                 <tr>
-                    <th onChange={this.sortByID}>ID</th>
-                    <th onChange={this.sortByName}>Name</th>
-                    <th onChange={this.sortByDate}>Desire Date</th>
-                    <th onChange={this.sortByUrgency}>Urgency</th>
-                    <th onChange={this.sortByStatus}>Status</th>
+                    <th onClick={this.sortById}>ID</th>
+                    <th onClick={this.sortByName}>Name</th>
+                    <th onClick={this.sortByDate}>Desire Date</th>
+                    <th onClick={this.sortByUrgency}>Urgency</th>
+                    <th onClick={this.sortByStatus}>Status</th>
                     <th>Action</th>
                 </tr>
                 </thead>
 
                 <tbody>
 
-                {this.props.tickets.map((ticket, i) => (
+                {this.state.searchContent.map((ticket, i) => (
                     <tr key={i}>
                         <td>{ticket.id}</td>
                         <td value={ticket.id} onClick={() => {
                             this.toOverview(ticket.id)
                         }}>{ticket.name}</td>
-                        <td>{moment(ticket.desiredResolutionDate).format("LL")}</td>
+                        <td>{this.convertToDate(ticket.desiredResolutionDate)}</td>
                         <td>{ticket.urgency}</td>
                         <td>{ticket.state}</td>
                         <td>
