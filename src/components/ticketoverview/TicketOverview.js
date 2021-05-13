@@ -4,6 +4,8 @@ import {TicketCommentsTable} from "./TicketCommentsTable";
 import st from './StyleTicketOverview.module.css'
 import axios from "axios";
 import moment from "moment";
+import history from "../../history";
+
 
 
 export class TicketOverview extends React.Component {
@@ -18,8 +20,16 @@ export class TicketOverview extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:8080/finalproject/tickets/'+ this.props.match.params.id, JSON.parse(localStorage.getItem('AuthHeader')))
-            .then(response => this.setState({ticket: response.data}));
+        axios.get('http://localhost:8080/finalproject/tickets/' + this.props.match.params.id, JSON.parse(localStorage.getItem('AuthHeader')))
+            .then((response) => {
+                this.setState({
+                    ticket: response.data
+                })
+
+            })
+            .catch(error =>{
+                history.push("/tickets")
+            });
         console.log(this.state.ticket);
     }
 
@@ -56,7 +66,6 @@ export class TicketOverview extends React.Component {
                             </div>
 
                             <div className={st.ticketInfo}>
-                                {console.log(this.state.ticket)}
                                 <p>{moment(this.state.ticket.createdOn).format("LL")}</p>
                                 <p>{this.state.ticket.state}</p>
                                 <p>{this.state.ticket.urgency}</p>
