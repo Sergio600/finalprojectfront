@@ -5,7 +5,7 @@ import st from './StyleTicketOverview.module.css'
 import axios from "axios";
 import moment from "moment";
 import history from "../../history";
-
+import {createSvgIcon} from "@material-ui/core";
 
 
 export class TicketOverview extends React.Component {
@@ -16,21 +16,43 @@ export class TicketOverview extends React.Component {
             showingHistory: true,
             showingComments: false,
             ticket: {},
+            userOwner: {},
+            userApprover: {},
+            userAssignee: {},
+            showHistoryAndComments: true,
         }
+
+        this.setData = this.setData.bind(this);
+        this.convertToDate = this.convertToDate.bind(this);
+        this.setShowHistoryAndComments = this.setShowHistoryAndComments.bind(this);
     }
 
     componentDidMount() {
+        this.setData();
+    }
+
+    setData() {
         axios.get('http://localhost:8080/finalproject/tickets/' + this.props.match.params.id, JSON.parse(localStorage.getItem('AuthHeader')))
             .then((response) => {
                 this.setState({
-                    ticket: response.data
+                    ticket: response.data,
+                    userOwner: response.data.userOwner,
                 })
-
+                console.log(response.data.userOwner);
             })
-            .catch(error =>{
-                history.push("/tickets")
+            .catch(error => {
+                history.push("/all-tickets")
             });
-        console.log(this.state.ticket);
+    }
+
+    convertToDate(date) {
+        return new Date(date).toLocaleDateString().split(".").join("/");
+    }
+
+    setShowHistoryAndComments(){
+        this.setState({
+            showHistoryAndComments: !this.state.showHistoryAndComments,
+        })
     }
 
     render() {
@@ -49,7 +71,7 @@ export class TicketOverview extends React.Component {
                     <div className={st.description}>
 
                         <div className={st.ticketName}>
-                            <p>Ticket {this.state.id} - {this.state.ticket.name}</p>
+                            <p>TicketID {this.state.ticket.id} - {this.state.ticket.name}</p>
                         </div>
 
                         <div className={st.ticketInfoTable}>
@@ -69,15 +91,12 @@ export class TicketOverview extends React.Component {
                                 <p>{moment(this.state.ticket.createdOn).format("LL")}</p>
                                 <p>{this.state.ticket.state}</p>
                                 <p>{this.state.ticket.urgency}</p>
-                                <p>{moment(this.state.ticket.desiredResolutionDate).format("LL")}</p>
-                                <p>{this.state.ticket?.userOwner?.lastName}</p>
-                                <p>{this.state.ticket?.userApprover?.lastName}</p>
-                                <p>{this.state.ticket?.userAssignee?.lastName}</p>
-
+                                <p>{this.convertToDate(this.state.ticket.desiredResolutionDate)}</p>
+                                <p>UserOwner</p>
+                                <p>Approver</p>
+                                <p>Assignee</p>
                                 <p>Attachment</p>
                                 <p>{this.state.ticket.description}</p>
-
-
                             </div>
                         </div>
                     </div>
@@ -102,25 +121,16 @@ export class TicketOverview extends React.Component {
                 <div className={st.historyComments}>
 
                     <div className={st.historyCommentsButtons}>
-                        <button onClick={() => this.setState({
-                            showingHistory: true,
-                            showingComments: false
-                        })}> History
+                        <button onClick={this.setShowHistoryAndComments}> History
                         </button>
 
-                        <button onClick={() => this.setState({
-                            showingHistory: false,
-                            showingComments: true
-                        })}> Comments
+                        <button onClick={this.setShowHistoryAndComments}> Comments
                         </button>
                     </div>
 
-
                     <div className={st.tables}>
-                        {this.state.showingHistory ?
-                            <TicketHistoryTable ticket={this.state.ticket}/> : null}
-                        {this.state.showingComments ?
-                            <TicketCommentsTable ticket={this.state.ticket}/> : null}
+                        {this.state.showHistoryAndComments ?
+                            <TicketHistoryTable id={this.state.ticket.id}/> : <TicketCommentsTable id={this.state.ticket.id}/>}
                     </div>
 
                 </div>
