@@ -24,6 +24,7 @@ export class TicketHistoryTable extends React.Component {
                 this.setState({
                     histories: response.data,
                 })
+                console.log(response.data);
             }).catch(error => {
             console.log(error)
         })
@@ -53,7 +54,7 @@ export class TicketHistoryTable extends React.Component {
                     {this.state.histories.map((history, i) => (
                         <tr key={i}>
                             <td>{this.convertToDate(history.date)}</td>
-                            <td>Owner</td>
+                            <td>{history.user.email}</td>
                             <td>{history.action}</td>
                             <td>{history.description}</td>
                         </tr>

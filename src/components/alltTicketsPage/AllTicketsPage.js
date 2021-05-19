@@ -77,6 +77,8 @@ export class AllTicketsPage extends React.Component {
     myTickets() {
         var user = JSON.parse(localStorage.getItem('User'));
         var filteredArray = [];
+        console.log(this.state.searchContent);
+
 
         if (user.role === "MANAGER") {
             for (let i = 0; i < this.state.searchContent.length; i++) {

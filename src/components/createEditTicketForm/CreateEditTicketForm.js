@@ -37,11 +37,12 @@ export class CreateEditTicketForm extends React.Component {
                     id: 'LOW'
                 }
             ],
-            action: ''
+            action: 'create'
         }
 
         // this.toAllTicketsPage = this.toAllTicketsPage.bind(this);
         this.createNewTicket = this.createNewTicket.bind(this);
+        this.createTicketDraft = this.createTicketDraft.bind(this);
         this.updateTicketCategory = this.updateTicketCategory.bind(this);
         this.updateTicketName = this.updateTicketName.bind(this);
         this.updateTicketDescription = this.updateTicketDescription.bind(this);
@@ -49,6 +50,9 @@ export class CreateEditTicketForm extends React.Component {
         this.updateTicketDesiredDate = this.updateTicketDesiredDate.bind(this);
         this.updateTicketAttachments = this.updateTicketAttachments.bind(this);
         this.updateTicketComment = this.updateTicketComment.bind(this);
+        this.setActionCreate = this.setActionCreate.bind(this);
+        this.setActionDraft = this.setActionDraft.bind(this);
+
     }
 
     componentDidMount() {
@@ -63,6 +67,19 @@ export class CreateEditTicketForm extends React.Component {
         }).catch(error => {
             console.log(error)
         });
+    }
+
+    setActionCreate(e) {
+        this.setState({
+            action: 'create'
+        })
+    }
+
+
+    setActionDraft(e) {
+        this.setState({
+            action: 'draft'
+        })
     }
 
 
@@ -122,6 +139,45 @@ export class CreateEditTicketForm extends React.Component {
     }
 
 
+    createTicketDraft(e) {
+        e.preventDefault();
+
+        var description = this.state.description === '' ? null : this.state.description;
+        var comment = this.state.comment === '' ? null : this.state.comment;
+
+        let ticketDto = {
+
+            name: this.state.name,
+            category: this.state.category,
+            description: description,
+            urgency: this.state.urgency,
+            createdOn: this.state.createdOn,
+            desiredResolutionDate: this.state.desiredResolutionDate,
+            comment: comment,
+
+        }
+
+        const formData = new FormData();
+
+        formData.append("ticketDto", JSON.stringify(ticketDto));
+
+        for (let file of this.state.files) {
+            formData.append('files', file);
+        }
+
+        console.log(ticketDto);
+
+        axios.post('http://localhost:8080/finalproject/tickets/draft',
+            formData,
+            JSON.parse(localStorage.getItem('AuthHeader')))
+            .then((response) => {
+                history.push('/all-tickets');
+            }).catch(error => {
+            console.log(error);
+        })
+    }
+
+
     createNewTicket(e) {
         e.preventDefault();
 
@@ -166,7 +222,8 @@ export class CreateEditTicketForm extends React.Component {
             <div>
 
 
-                <form className={sc.formCenter} onSubmit={this.createNewTicket}>
+                <form className={sc.formCenter}
+                      onSubmit={this.state.action === 'create' ? this.createNewTicket : this.createTicketDraft}>
                     <div className={sc.formGroup}>
                         <label htmlFor="category">Category</label>
                         <select name="category" id="category"
@@ -230,8 +287,11 @@ export class CreateEditTicketForm extends React.Component {
                     </div>
 
                     <div>
-                        <button type="submit">Enter
-                        </button>
+                        <button type="submit" onClick={this.setActionCreate}>Submit </button>
+                    </div>
+
+                    <div>
+                        <button type="submit" onClick={this.setActionDraft}>Save as Draft </button>
                     </div>
 
                 </form>

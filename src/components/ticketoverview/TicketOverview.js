@@ -92,7 +92,7 @@ export class TicketOverview extends React.Component {
                                 <p>{this.state.ticket.state}</p>
                                 <p>{this.state.ticket.urgency}</p>
                                 <p>{this.convertToDate(this.state.ticket.desiredResolutionDate)}</p>
-                                <p>UserOwner</p>
+                                <p>{this.state.userOwner.email}</p>
                                 <p>Approver</p>
                                 <p>Assignee</p>
                                 <p>Attachment</p>

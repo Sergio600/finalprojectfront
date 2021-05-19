@@ -11,11 +11,16 @@ export class TicketCommentsTable extends React.Component {
         }
 
         this.setComments = this.setComments.bind(this);
+        this.convertToDate = this.convertToDate.bind(this);
 
     }
 
     componentDidMount() {
         this.setComments();
+    }
+
+    convertToDate(date) {
+        return new Date(date).toLocaleDateString().split(".").join("/");
     }
 
 
@@ -26,8 +31,9 @@ export class TicketCommentsTable extends React.Component {
 
                 this.setState({
                     comments: response.data,
-                    user: response.data[0].user
                 })
+
+                console.log(response.data);
             }).catch(error => {console.log(error)})
     }
 
@@ -46,8 +52,8 @@ export class TicketCommentsTable extends React.Component {
                     <tbody>
                     {this.state.comments.map((comment, i) => (
                         <tr key={i}>
-                            <td>{moment(comment.date).format("LL")}</td>
-                            <td>{this.state.user.lastName}</td>
+                            <td>{this.convertToDate(comment.date)}</td>
+                            <td>{comment.user.email}</td>
                             <td>{comment.text}</td>
                         </tr>
                     ))}
