@@ -18,6 +18,7 @@ export class TicketHistoryTable extends React.Component {
 
 
     setHistories() {
+        console.log(this.props);
         axios.get('http://localhost:8080/finalproject/tickets/' + this.props.id + '/history',
             JSON.parse(localStorage.getItem('AuthHeader')))
             .then((response) => {

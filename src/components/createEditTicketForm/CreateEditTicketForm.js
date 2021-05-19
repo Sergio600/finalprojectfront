@@ -1,5 +1,5 @@
 import React from "react";
-import sc from "../createTicketPage/CreateTicketPage.module.css";
+import sc from "./CreateEditTicketForm.module.css";
 import history from "../../history";
 import axios from "axios";
 
@@ -219,8 +219,9 @@ export class CreateEditTicketForm extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className={sc.formCreateTicket}>
 
+                <button onClick={this.toAllTicketsPage}>To Ticket list</button>
 
                 <form className={sc.formCenter}
                       onSubmit={this.state.action === 'create' ? this.createNewTicket : this.createTicketDraft}>

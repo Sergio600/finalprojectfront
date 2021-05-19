@@ -1,9 +1,9 @@
 import React from "react";
-import sc from "../editTicket/EditTicketPage.module.css";
+import sc from "./EditTicketPage.module.css";
 import axios from "axios";
 import history from "../../history";
 
-export class EditTicket extends React.Component{
+export class EditTicket extends React.Component {
 
     constructor(props) {
         super(props);
@@ -14,9 +14,10 @@ export class EditTicket extends React.Component{
             },
             name: '',
             description: '',
-            urgency: 'CRITICAL',
+            urgency: '',
             createdOn: new Date().getTime(),
             desiredResolutionDate: new Date().getTime(),
+            comments: {},
             comment: '',
             files: [],
             urgencies: [
@@ -37,7 +38,9 @@ export class EditTicket extends React.Component{
                     id: 'LOW'
                 }
             ],
-            action: 'create'
+            action: 'create',
+            ticket: {},
+            userOwner: {}
         }
 
         // this.toAllTicketsPage = this.toAllTicketsPage.bind(this);
@@ -52,12 +55,50 @@ export class EditTicket extends React.Component{
         this.updateTicketComment = this.updateTicketComment.bind(this);
         this.setActionCreate = this.setActionCreate.bind(this);
         this.setActionDraft = this.setActionDraft.bind(this);
+        this.setData = this.setData.bind(this);
+        this.setComment = this.setComment.bind(this);
 
     }
 
     componentDidMount() {
         this.setCategories();
+        this.setData();
+        this.setComment();
     }
+
+    setData() {
+        axios.get('http://localhost:8080/finalproject/tickets/' + this.props.match.params.id, JSON.parse(localStorage.getItem('AuthHeader')))
+            .then((response) => {
+                this.setState({
+                    ticket: response.data,
+                    userOwner: response.data.userOwner,
+                    category: response.data.category,
+                    name: response.data.name,
+                    description: response.data.description,
+                    urgency: response.data.urgency,
+                    desiredResolutionDate: response.data.desiredResolutionDate,
+
+
+                })
+                console.log(response.data.urgency);
+                console.log(response.data.category);
+            })
+            .catch(error => {
+                history.push("/all-tickets")
+            });
+    }
+
+    setComment(){
+        axios.get('http://localhost:8080/finalproject/tickets/'+ this.props.match.params.id + '/comments',
+            JSON.parse(localStorage.getItem('AuthHeader')))
+            .then((response) => {
+                this.setState({
+                    comment: response.data[0].text,
+                })
+            }).catch(error => {console.log(error)})
+    }
+
+
 
     setCategories() {
         axios.get('http://localhost:8080/finalproject/categories', JSON.parse(localStorage.getItem('AuthHeader'))).then((responce) => {
@@ -83,8 +124,9 @@ export class EditTicket extends React.Component{
     }
 
 
-    toAllTicketsPage() {
-        history.push('/all-tickets');
+    toTicketOverview() {
+        console.log(this.state.ticket.id);
+        history.push('/ticket-overview/' + this.state.ticket.id);
     }
 
     updateTicketCategory(e) {
@@ -219,15 +261,19 @@ export class EditTicket extends React.Component{
 
     render() {
         return (
-            <div>
+            <div className={sc.formCreateTicket}>
 
+                <button onClick={this.toTicketOverview}>Ticket overview</button>
 
                 <form className={sc.formCenter}
                       onSubmit={this.state.action === 'create' ? this.createNewTicket : this.createTicketDraft}>
                     <div className={sc.formGroup}>
                         <label htmlFor="category">Category</label>
-                        <select name="category" id="category"
-                                onChange={this.updateTicketCategory}>
+                        <select name="category"
+                                id="category"
+                                onChange={this.updateTicketCategory}
+                                value={this.state.category.id}
+                        >
                             {
                                 this.state.categories.map((item, index) => {
                                     return <option key={index} value={item.id}>{item.name}</option>
@@ -253,9 +299,11 @@ export class EditTicket extends React.Component{
                     </div>
 
                     <div className={sc.formGroup}>
+
                         <label htmlFor="urgency">Urgency</label>
                         <select name="urgency" id="urgency"
                                 onChange={this.updateTicketUrgency}
+                                value={this.state.urgency}
                         >
                             {
                                 this.state.urgencies.map((item, index) => {
@@ -267,7 +315,9 @@ export class EditTicket extends React.Component{
                     <div className={sc.formGroup}>
                         <label htmlFor="desiredDate">Desired resolution date</label>
                         <input type="date" name="desiredDate"
-                               onChange={this.updateTicketDesiredDate}/>
+                               onChange={this.updateTicketDesiredDate}
+                        value={this.state.desiredResolutionDate}
+                        />
                     </div>
 
                     <div className={sc.formGroup}>
@@ -282,16 +332,17 @@ export class EditTicket extends React.Component{
                     <div className={sc.formGroup}>
                         <label htmlFor="comment">Comment</label>
                         <textarea name="comment" id="comment" cols="30" rows="10"
+                                  value={this.state.comment}
                                   onChange={this.updateTicketComment}
                         />
                     </div>
 
                     <div>
-                        <button type="submit" onClick={this.setActionCreate}>Submit </button>
+                        <button type="submit" onClick={this.setActionCreate}>Submit</button>
                     </div>
 
                     <div>
-                        <button type="submit" onClick={this.setActionDraft}>Save as Draft </button>
+                        <button type="submit" onClick={this.setActionDraft}>Save as Draft</button>
                     </div>
 
                 </form>

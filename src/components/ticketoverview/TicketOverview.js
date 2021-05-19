@@ -5,7 +5,6 @@ import st from './StyleTicketOverview.module.css'
 import axios from "axios";
 import moment from "moment";
 import history from "../../history";
-import {createSvgIcon} from "@material-ui/core";
 
 
 export class TicketOverview extends React.Component {
@@ -25,6 +24,8 @@ export class TicketOverview extends React.Component {
         this.setData = this.setData.bind(this);
         this.convertToDate = this.convertToDate.bind(this);
         this.setShowHistoryAndComments = this.setShowHistoryAndComments.bind(this);
+        this.toAllTicketsPage = this.toAllTicketsPage.bind(this);
+        this.toEditPage = this.toEditPage.bind(this);
     }
 
     componentDidMount() {
@@ -32,6 +33,7 @@ export class TicketOverview extends React.Component {
     }
 
     setData() {
+        console.log(this.props.match.params.id);
         axios.get('http://localhost:8080/finalproject/tickets/' + this.props.match.params.id, JSON.parse(localStorage.getItem('AuthHeader')))
             .then((response) => {
                 this.setState({
@@ -55,6 +57,20 @@ export class TicketOverview extends React.Component {
         })
     }
 
+    toAllTicketsPage() {
+        history.push('/all-tickets');
+    }
+
+    toEditPage(id){
+        var path = '/ticket-edit/' + id;
+        history.push(
+            {
+                pathname: path,
+                state: {ticketId: id}
+            }
+        )
+    }
+
     render() {
 
 
@@ -63,9 +79,7 @@ export class TicketOverview extends React.Component {
 
                 <div className={st.head}>
                     <div>
-                        <div className={st.link}>
-                            <a href="/all-tickets">Ticket List</a>
-                        </div>
+                        <button onClick={this.toAllTicketsPage}>To Ticket list</button>
                     </div>
 
                     <div className={st.description}>
@@ -109,7 +123,7 @@ export class TicketOverview extends React.Component {
 
                     <div className={st.btns}>
                         <div className={st.link}>
-                            <a href="/ticket-edit">Edit</a>
+                            <button onClick={()=>(this.toEditPage(this.state.ticket.id))}>Edit</button>
                         </div>
                         <div className={st.link}>
                             <a href="/feedback">Leave Feedback</a>
