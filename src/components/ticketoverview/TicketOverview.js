@@ -33,14 +33,12 @@ export class TicketOverview extends React.Component {
     }
 
     setData() {
-        console.log(this.props.match.params.id);
         axios.get('http://localhost:8080/finalproject/tickets/' + this.props.match.params.id, JSON.parse(localStorage.getItem('AuthHeader')))
             .then((response) => {
                 this.setState({
                     ticket: response.data,
                     userOwner: response.data.userOwner,
                 })
-                console.log(response.data.userOwner);
             })
             .catch(error => {
                 history.push("/all-tickets")

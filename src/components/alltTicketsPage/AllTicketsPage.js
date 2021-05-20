@@ -12,6 +12,7 @@ export class AllTicketsPage extends React.Component {
             content: [],
             searchContent: [],
             actionMenu: ["Submit", "Approve", "Decline", "Cancel"],
+            currentUser: {},
             bol: false
         }
 
@@ -35,6 +36,7 @@ export class AllTicketsPage extends React.Component {
         this.filterArray = this.filterArray.bind(this);
 
         this.myTickets = this.myTickets.bind(this);
+        this.getCurrentUser = this.getCurrentUser.bind(this);
     }
 
     toOverview(id) {
@@ -49,6 +51,18 @@ export class AllTicketsPage extends React.Component {
 
     componentDidMount() {
         this.setDate();
+        this.getCurrentUser();
+    }
+
+    getCurrentUser() {
+        axios.get('http://localhost:8080/finalproject/users/current', JSON.parse(localStorage.getItem('AuthHeader')))
+            .then((response) => {
+                this.setState({
+                    currentUser: response.data,
+                });
+            }).catch(error => {
+            console.log(error)
+        })
     }
 
     setDate() {
@@ -60,7 +74,8 @@ export class AllTicketsPage extends React.Component {
                 })
                 this.sortByDate();
                 this.sortByUrgency();
-            }).catch(error => {})
+            }).catch(error => {
+        })
     }
 
 
@@ -284,8 +299,8 @@ export class AllTicketsPage extends React.Component {
 
                 <div className={s.btnChoose}>
 
-                        <button onClick={this.allTickets} className={s.btnAllTickets} >All Tickets</button>
-                        <button onClick={this.myTickets} className={s.btnAllTickets} >My Tickets</button>
+                    <button onClick={this.allTickets} className={s.btnAllTickets}>All Tickets</button>
+                    <button onClick={this.myTickets} className={s.btnAllTickets}>My Tickets</button>
                 </div>
                 <input type="text"
                        onChange={this.filterArray}
@@ -318,8 +333,8 @@ export class AllTicketsPage extends React.Component {
                             <td>{ticket.urgency}</td>
                             <td>{ticket.state}</td>
                             <td>
-                                <Select ticket={ticket}/>
-                                {/*<select name="actionTicket" id="actionTicket">*/}
+                                <Select ticket={ticket} currentUser={this.state.currentUser}/>
+                                {/*<select name="actionTicket" >*/}
                                 {/*    {this.state.actionMenu.map((action, i) => (<option key={i}> {action} </option>))}*/}
                                 {/*</select>*/}
                             </td>
