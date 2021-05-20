@@ -11,6 +11,7 @@ import history from "./history";
 import {TicketHistoryTable} from "./components/ticketoverview/TicketHistoryTable";
 import {CreateEditTicketForm} from "./components/createEditTicketForm/CreateEditTicketForm";
 import {EditTicket} from "./components/editTicket/EditTicket";
+import {Select} from "./components/select/Select";
 
 class App extends Component {
 
@@ -27,6 +28,8 @@ class App extends Component {
                         <Route exact path="/ticket-overview/:id" component={TicketOverview}/>
                         <Route path="/feedback" component={Feedback}/>
                         <Route path="/feedback-view" component={FeedbackView}/>
+                        <Route path="/select-action" component={Select}/>
+
                     </Switch>
                 </Router>
             </div>

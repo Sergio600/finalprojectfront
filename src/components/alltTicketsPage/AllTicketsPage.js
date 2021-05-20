@@ -2,6 +2,7 @@ import React from "react";
 import s from './AllTicketsPage.module.css'
 import axios from "axios";
 import history from "../../history";
+import {Select} from "../select/Select";
 
 
 export class AllTicketsPage extends React.Component {
@@ -317,9 +318,10 @@ export class AllTicketsPage extends React.Component {
                             <td>{ticket.urgency}</td>
                             <td>{ticket.state}</td>
                             <td>
-                                <select name="actionTicket" id="actionTicket">
-                                    {this.state.actionMenu.map((action, i) => (<option key={i}> {action} </option>))}
-                                </select>
+                                <Select ticket={ticket}/>
+                                {/*<select name="actionTicket" id="actionTicket">*/}
+                                {/*    {this.state.actionMenu.map((action, i) => (<option key={i}> {action} </option>))}*/}
+                                {/*</select>*/}
                             </td>
                         </tr>
                     ))}
