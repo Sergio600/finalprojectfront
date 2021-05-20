@@ -72,9 +72,10 @@ export class AllTicketsPage extends React.Component {
                     content: response.data,
                     searchContent: response.data
                 })
-                this.sortByDate();
-                this.sortByUrgency();
+                // this.sortByDate();
+                // this.sortByUrgency();
             }).catch(error => {
+                console.log(error);
         })
     }
 
