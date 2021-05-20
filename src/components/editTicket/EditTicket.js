@@ -44,8 +44,8 @@ export class EditTicket extends React.Component {
         }
 
         // this.toAllTicketsPage = this.toAllTicketsPage.bind(this);
-        this.createNewTicket = this.createNewTicket.bind(this);
-        this.createTicketDraft = this.createTicketDraft.bind(this);
+        this.updateTicket = this.updateTicket.bind(this);
+        this.updateTicketDraft = this.updateTicketDraft.bind(this);
         this.updateTicketCategory = this.updateTicketCategory.bind(this);
         this.updateTicketName = this.updateTicketName.bind(this);
         this.updateTicketDescription = this.updateTicketDescription.bind(this);
@@ -57,7 +57,7 @@ export class EditTicket extends React.Component {
         this.setActionDraft = this.setActionDraft.bind(this);
         this.setData = this.setData.bind(this);
         this.setComment = this.setComment.bind(this);
-
+        this.convertToDate = this.convertToDate.bind(this);
     }
 
     componentDidMount() {
@@ -108,6 +108,10 @@ export class EditTicket extends React.Component {
         }).catch(error => {
             console.log(error)
         });
+    }
+
+    convertToDate(date) {
+        return new Date(date).toLocaleDateString().split(".").join("/");
     }
 
     setActionCreate(e) {
@@ -181,7 +185,7 @@ export class EditTicket extends React.Component {
     }
 
 
-    createTicketDraft(e) {
+    updateTicketDraft(e) {
         e.preventDefault();
 
         var description = this.state.description === '' ? null : this.state.description;
@@ -209,7 +213,7 @@ export class EditTicket extends React.Component {
 
         console.log(ticketDto);
 
-        axios.post('http://localhost:8080/finalproject/tickets/draft',
+        axios.put('http://localhost:8080/finalproject/tickets/draft',
             formData,
             JSON.parse(localStorage.getItem('AuthHeader')))
             .then((response) => {
@@ -220,14 +224,14 @@ export class EditTicket extends React.Component {
     }
 
 
-    createNewTicket(e) {
+    updateTicket(e) {
         e.preventDefault();
 
         var description = this.state.description === '' ? null : this.state.description;
         var comment = this.state.comment === '' ? null : this.state.comment;
+        let id = this.state.ticket.id;
 
         let ticketDto = {
-
             name: this.state.name,
             category: this.state.category,
             description: description,
@@ -247,8 +251,8 @@ export class EditTicket extends React.Component {
 
         console.log(ticketDto);
 
-        axios.post('http://localhost:8080/finalproject/tickets',
-            formData,
+        axios.put('http://localhost:8080/finalproject/tickets/'+ id,
+            ticketDto,
             JSON.parse(localStorage.getItem('AuthHeader')))
             .then((response) => {
                 history.push('/all-tickets');
@@ -265,8 +269,10 @@ export class EditTicket extends React.Component {
 
                 <button onClick={this.toTicketOverview}>Ticket overview</button>
 
+
                 <form className={sc.formCenter}
-                      onSubmit={this.state.action === 'create' ? this.createNewTicket : this.createTicketDraft}>
+                      onSubmit={this.state.action === 'create' ? this.updateTicket : this.updateTicketDraft}>
+
                     <div className={sc.formGroup}>
                         <label htmlFor="category">Category</label>
                         <select name="category"
@@ -316,7 +322,7 @@ export class EditTicket extends React.Component {
                         <label htmlFor="desiredDate">Desired resolution date</label>
                         <input type="date" name="desiredDate"
                                onChange={this.updateTicketDesiredDate}
-                        value={this.state.desiredResolutionDate}
+                        value={this.convertToDate(this.state.desiredResolutionDate)}
                         />
                     </div>
 
