@@ -19,6 +19,9 @@ export class TicketOverview extends React.Component {
             userApprover: {},
             userAssignee: {},
             showHistoryAndComments: true,
+            visibilityFeedback: 'block',
+            currentUser: {}
+
         }
 
         this.setData = this.setData.bind(this);
@@ -26,10 +29,14 @@ export class TicketOverview extends React.Component {
         this.setShowHistoryAndComments = this.setShowHistoryAndComments.bind(this);
         this.toAllTicketsPage = this.toAllTicketsPage.bind(this);
         this.toEditPage = this.toEditPage.bind(this);
+        this.checkVisibilityFeedback = this.checkVisibilityFeedback.bind(this);
+
     }
 
     componentDidMount() {
+        console.log(this.props);
         this.setData();
+        this.checkVisibilityFeedback();
     }
 
     setData() {
@@ -39,11 +46,44 @@ export class TicketOverview extends React.Component {
                     ticket: response.data,
                     userOwner: response.data.userOwner,
                 })
+                console.log(response.data);
             })
             .catch(error => {
-                history.push("/all-tickets")
+                console.log(error);
+                history.push("/all-tickets");
             });
+
+        axios.get('http://localhost:8080/finalproject/users/current', JSON.parse(localStorage.getItem('AuthHeader')))
+            .then((response) => {
+                this.setState({
+                    currentUser: response.data,
+                });
+                console.log(response.data);
+            }).catch(error => {
+            console.log(error);
+            history.push("/all-tickets");
+        })
     }
+
+    checkVisibilityFeedback(){
+        console.log(this.state.currentUser);
+        if(this.state.currentUser.role === 'ENGINEER'){
+            this.setState({
+                visibilityFeedback: 'none'
+            })
+        }
+    }
+
+    // getCurrentUser() {
+    //     axios.get('http://localhost:8080/finalproject/users/current', JSON.parse(localStorage.getItem('AuthHeader')))
+    //         .then((response) => {
+    //             this.setState({
+    //                 currentUser: response.data,
+    //             });
+    //         }).catch(error => {
+    //         console.log(error)
+    //     })
+    // }
 
     convertToDate(date) {
         return new Date(date).toLocaleDateString().split(".").join("/");
@@ -65,6 +105,16 @@ export class TicketOverview extends React.Component {
             {
                 pathname: path,
                 state: {ticketId: id}
+            }
+        )
+    }
+
+    toFeedbackPage(id){
+        var path = '/feedback/' + id;
+        history.push(
+            {
+                pathname: path,
+                state: {ticketId: id},
             }
         )
     }
@@ -124,8 +174,15 @@ export class TicketOverview extends React.Component {
                             <button onClick={()=>(this.toEditPage(this.state.ticket.id))}>Edit</button>
                         </div>
                         <div className={st.link}>
-                            <a href="/feedback">Leave Feedback</a>
+
+                            <button onClick={()=>(this.toFeedbackPage(this.state.ticket.id))}
+                                    style={{display: this.state.visibilityFeedback}}
+                            >Feedback</button>
+
                         </div>
+                        {/*<div className={st.link}>*/}
+                        {/*    <a href="/feedback">Leave Feedback</a>*/}
+                        {/*</div>*/}
                     </div>
 
                 </div>

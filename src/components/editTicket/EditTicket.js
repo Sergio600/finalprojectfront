@@ -58,9 +58,12 @@ export class EditTicket extends React.Component {
         this.setData = this.setData.bind(this);
         this.setComment = this.setComment.bind(this);
         this.convertToDate = this.convertToDate.bind(this);
+        this.toTicketOverview = this.toTicketOverview.bind(this);
+
     }
 
     componentDidMount() {
+        console.log(this.props);
         this.setCategories();
         this.setData();
         this.setComment();
@@ -129,8 +132,8 @@ export class EditTicket extends React.Component {
 
 
     toTicketOverview() {
-        console.log(this.state.ticket.id);
-        history.push('/ticket-overview/' + this.state.ticket.id);
+        console.log(this.props.match.params.id);
+        history.push('/ticket-overview/' + this.props.match.params.id);
     }
 
     updateTicketCategory(e) {

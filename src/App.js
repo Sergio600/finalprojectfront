@@ -6,7 +6,6 @@ import {Login} from "./components/login/Login";
 import {AllTicketsPage} from "./components/alltTicketsPage/AllTicketsPage";
 import {TicketOverview} from "./components/ticketoverview/TicketOverview";
 import {Feedback} from "./components/feedback/Feedback";
-import {FeedbackView} from "./components/feedbackView/FeedbackView";
 import history from "./history";
 import {TicketHistoryTable} from "./components/ticketoverview/TicketHistoryTable";
 import {CreateEditTicketForm} from "./components/createEditTicketForm/CreateEditTicketForm";
@@ -26,8 +25,7 @@ class App extends Component {
                         <Route path="/ticket-edit/:id" component={EditTicket}/>
                         <Route path="/ticket-history" component={TicketHistoryTable}/>
                         <Route exact path="/ticket-overview/:id" component={TicketOverview}/>
-                        <Route path="/feedback" component={Feedback}/>
-                        <Route path="/feedback-view" component={FeedbackView}/>
+                        <Route path="/feedback/:id" component={Feedback}/>
                         <Route path="/select-action" component={Select}/>
 
                     </Switch>
