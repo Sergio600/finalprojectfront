@@ -19,6 +19,7 @@ export class Select extends React.Component {
         this.setActions = this.setActions.bind(this);
         this.setStateToTicket = this.setStateToTicket.bind(this);
         this.updateTicket = this.updateTicket.bind(this);
+        this.updateTicketHistory = this.updateTicketHistory.bind(this);
     }
 
     componentDidMount() {
@@ -26,21 +27,6 @@ export class Select extends React.Component {
     }
 
     setActions() {
-
-        // console.log(this.props.ticket.id);
-        //
-        // console.log(this.props.ticket.userOwner.role);
-        // console.log(this.props.currentUser.role);
-        // console.log(this.props.ticket.userOwner.role === this.props.currentUser.role);
-        //
-        // console.log(this.props.ticket.userOwner);
-        // console.log(this.props.currentUser);
-        // console.log(this.props.ticket.userOwner.email === this.props.currentUser.email);
-        //
-        //
-        // console.log(this.props.ticket.userOwner.role === 'MANAGER');
-        // console.log("is it draft: " + (this.props.ticket.state === 'DRAFT').toString());
-
 
         if (this.props.currentUser.role === 'MANAGER') {
 
@@ -97,45 +83,76 @@ export class Select extends React.Component {
 
     setStateToTicket(e) {
         var ticketState = '';
+        var historyDescription='';
 
         if (e.target.value === 'Approve') {
             ticketState ='APPROVED';
+            historyDescription= "Ticket status is changed from " + this.props.ticket.state + " to APPROVED";
         }
 
         if (e.target.value === 'Decline') {
             ticketState ='DECLINED';
+            historyDescription ="Ticket status is changed from " + this.props.ticket.state + " to DECLINED";
+
         }
 
         if (e.target.value === 'Cancel') {
             ticketState ='CANCELLED';
+            historyDescription="Ticket status is changed from " + this.props.ticket.state + " to CANCELLED";
+
         }
 
         if (e.target.value === 'Assign to me') {
             ticketState ='IN PROGRESS';
+            historyDescription ="Ticket status is changed from " + this.props.ticket.state + " to IN PROGRESS";
+
         }
 
         if (e.target.value === 'Done') {
             ticketState ='DONE';
+            historyDescription="Ticket status is changed from " + this.props.ticket.state + " to DONE";
+
         }
 
         if (e.target.value === 'Submit') {
             ticketState ='NEW';
+            historyDescription = "Ticket status is changed from " + this.props.ticket.state + " to NEW";
+
         }
 
-
-
+        this.updateTicketHistory(historyDescription);
         this.updateTicket(ticketState);
+
     }
 
     updateTicket(ticketState) {
         let ticketDto = this.props.ticket;
         ticketDto.state = ticketState;
 
-        console.log(ticketDto);
         console.log(ticketState);
 
         axios.put('http://localhost:8080/finalproject/tickets/'+ this.props.ticket.id,
             ticketDto,
+            JSON.parse(localStorage.getItem('AuthHeader')))
+            .then((response) => {
+                history.push('/all-tickets');
+            }).catch(error => {
+            console.log(error);
+        })
+        console.log(ticketDto);
+    }
+
+    updateTicketHistory(historyDescription){
+        let historyDto = {
+            date: new Date().getTime(),
+            description: historyDescription,
+        };
+
+        console.log(historyDto);
+
+
+        axios.post('http://localhost:8080/finalproject/tickets/'+ this.props.ticket.id+"/history",
+            historyDto,
             JSON.parse(localStorage.getItem('AuthHeader')))
             .then((response) => {
                 history.push('/all-tickets');

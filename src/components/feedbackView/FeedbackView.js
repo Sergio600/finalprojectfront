@@ -34,7 +34,6 @@ export class FeedbackView extends React.Component {
 
                 </div>
 
-
             </div>
         );
     }
