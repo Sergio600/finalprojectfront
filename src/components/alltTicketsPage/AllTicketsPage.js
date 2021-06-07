@@ -37,6 +37,17 @@ export class AllTicketsPage extends React.Component {
 
         this.myTickets = this.myTickets.bind(this);
         this.getCurrentUser = this.getCurrentUser.bind(this);
+        this.logOut = this.logOut.bind(this);
+    }
+
+    logOut(){
+        localStorage.clear();
+        var path = '/login';
+        history.push(
+            {
+                pathname: path,
+            }
+        )
     }
 
     toOverview(id) {
@@ -78,7 +89,6 @@ export class AllTicketsPage extends React.Component {
                 console.log(error);
         })
     }
-
 
     convertToDate(date) {
         return new Date(date).toLocaleDateString().split(".").join("/");
@@ -193,7 +203,6 @@ export class AllTicketsPage extends React.Component {
         }
     }
 
-
     sortById() {
         this.setBolState();
         let arraySotedById = this.state.searchContent.sort(this.compareId);
@@ -293,6 +302,10 @@ export class AllTicketsPage extends React.Component {
 
             <div className={s.form}>
                 <div className={s.btnCreate}>
+                        <button type="submit" onClick={this.logOut}>Log out</button>
+                </div>
+
+                <div className={s.btnCreate}>
                     <form action="/ticket-create">
                         <button type="submit">Create New Ticket</button>
                     </form>
@@ -335,9 +348,6 @@ export class AllTicketsPage extends React.Component {
                             <td>{ticket.state}</td>
                             <td>
                                 <Select ticket={ticket} currentUser={this.state.currentUser}/>
-                                {/*<select name="actionTicket" >*/}
-                                {/*    {this.state.actionMenu.map((action, i) => (<option key={i}> {action} </option>))}*/}
-                                {/*</select>*/}
                             </td>
                         </tr>
                     ))}

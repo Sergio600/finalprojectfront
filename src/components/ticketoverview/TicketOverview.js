@@ -45,6 +45,8 @@ export class TicketOverview extends React.Component {
                 this.setState({
                     ticket: response.data,
                     userOwner: response.data.userOwner,
+                    userApprover: response.data.userApprover,
+                    userAssignee: response.data.userAssignee,
                 })
                 console.log(response.data);
             })
@@ -65,9 +67,9 @@ export class TicketOverview extends React.Component {
         })
     }
 
-    checkVisibilityFeedback(){
+    checkVisibilityFeedback() {
         console.log(this.state.currentUser);
-        if(this.state.currentUser.role === 'ENGINEER'){
+        if (this.state.currentUser.role === 'ENGINEER') {
             this.setState({
                 visibilityFeedback: 'none'
             })
@@ -89,7 +91,7 @@ export class TicketOverview extends React.Component {
         return new Date(date).toLocaleDateString().split(".").join("/");
     }
 
-    setShowHistoryAndComments(){
+    setShowHistoryAndComments() {
         this.setState({
             showHistoryAndComments: !this.state.showHistoryAndComments,
         })
@@ -99,7 +101,7 @@ export class TicketOverview extends React.Component {
         history.push('/all-tickets');
     }
 
-    toEditPage(id){
+    toEditPage(id) {
         var path = '/ticket-edit/' + id;
         history.push(
             {
@@ -109,7 +111,7 @@ export class TicketOverview extends React.Component {
         )
     }
 
-    toFeedbackPage(id){
+    toFeedbackPage(id) {
         var path = '/feedback/' + id;
         history.push(
             {
@@ -155,8 +157,10 @@ export class TicketOverview extends React.Component {
                                 <p>{this.state.ticket.urgency}</p>
                                 <p>{this.convertToDate(this.state.ticket.desiredResolutionDate)}</p>
                                 <p>{this.state.userOwner.email}</p>
-                                <p>Approver</p>
-                                <p>Assignee</p>
+                                <p>{this.state.userApprover != null ? this.state.userApprover.email : "n/a"}</p>
+                                <p>{this.state.userAssignee != null ? this.state.userAssignee.email : "n/a"}</p>
+                                {/*<p>Approver</p>*/}
+                                {/*<p>Assignee</p>*/}
                                 <p>Attachment</p>
                                 <p>{this.state.ticket.description}</p>
                             </div>
@@ -171,13 +175,14 @@ export class TicketOverview extends React.Component {
 
                     <div className={st.btns}>
                         <div className={st.link}>
-                            <button onClick={()=>(this.toEditPage(this.state.ticket.id))}>Edit</button>
+                            <button onClick={() => (this.toEditPage(this.state.ticket.id))}>Edit</button>
                         </div>
                         <div className={st.link}>
 
-                            <button onClick={()=>(this.toFeedbackPage(this.state.ticket.id))}
+                            <button onClick={() => (this.toFeedbackPage(this.state.ticket.id))}
                                     style={{display: this.state.visibilityFeedback}}
-                            >Feedback</button>
+                            >Feedback
+                            </button>
 
                         </div>
                         {/*<div className={st.link}>*/}
@@ -199,7 +204,8 @@ export class TicketOverview extends React.Component {
 
                     <div className={st.tables}>
                         {this.state.showHistoryAndComments ?
-                            <TicketHistoryTable id={this.state.ticket.id}/> : <TicketCommentsTable id={this.state.ticket.id}/>}
+                            <TicketHistoryTable id={this.state.ticket.id}/> :
+                            <TicketCommentsTable id={this.state.ticket.id}/>}
                     </div>
 
                 </div>

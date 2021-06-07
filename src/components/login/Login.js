@@ -19,6 +19,7 @@ export class Login extends React.Component {
         this.signIn = this.signIn.bind(this);
         this.updateLogin = this.updateLogin.bind(this);
         this.updatePassword = this.updatePassword.bind(this);
+
     }
 
     createHeader() {

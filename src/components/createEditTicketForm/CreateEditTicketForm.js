@@ -75,7 +75,6 @@ export class CreateEditTicketForm extends React.Component {
         })
     }
 
-
     setActionDraft(e) {
         this.setState({
             action: 'draft'
@@ -121,7 +120,8 @@ export class CreateEditTicketForm extends React.Component {
 
     updateTicketAttachments(e) {
         let array = [];
-        for (let i = 0; i < e.targets.files.length; i++) {
+        for (let i = 0; i < e.target.files.length; i++) {
+
             array[i] = e.target.files[i];
         }
 
@@ -154,6 +154,7 @@ export class CreateEditTicketForm extends React.Component {
             createdOn: this.state.createdOn,
             desiredResolutionDate: this.state.desiredResolutionDate,
             comment: comment,
+
 
         }
 
@@ -213,8 +214,6 @@ export class CreateEditTicketForm extends React.Component {
             }).catch(error => {
             console.log(error);
         })
-
-
     }
 
     render() {

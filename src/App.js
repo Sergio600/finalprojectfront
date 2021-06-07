@@ -1,7 +1,8 @@
 import './App.css';
 import React, {Component} from 'react';
+import { Router } from 'react-router-dom';
 import {Switch, Route} from 'react-router-dom';
-import { Router } from 'react-router';
+
 import {Login} from "./components/login/Login";
 import {AllTicketsPage} from "./components/alltTicketsPage/AllTicketsPage";
 import {TicketOverview} from "./components/ticketoverview/TicketOverview";
@@ -16,8 +17,8 @@ class App extends Component {
 
     render() {
         return (
-            <div className="app-wrapper">
-                <Router history={history}>
+            // <div className="app-wrapper">
+                <Router history={history} >
                     <Switch>
                         <Route path="/login" component={Login}/>
                         <Route exact path="/all-tickets" component={AllTicketsPage}/>
@@ -30,7 +31,7 @@ class App extends Component {
 
                     </Switch>
                 </Router>
-            </div>
+            // </div>
         );
     }
 }

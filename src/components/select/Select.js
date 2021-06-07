@@ -13,7 +13,8 @@ export class Select extends React.Component {
             currentUser: {},
             userOwner: {},
             role: '',
-            ticketState: ''
+            ticketState: '',
+            updatePage:''
         }
 
         this.setActions = this.setActions.bind(this);
@@ -70,11 +71,11 @@ export class Select extends React.Component {
                 })
             } else if (this.props.ticket.state === 'IN PROGRESS') {
                 this.setState({
-                    actionMenu: ["Choose action", "DONE"],
+                    actionMenu: ["Choose action", "Done"],
                 })
             } else {
                 this.setState({
-                    actionMenu: ["n/a", "Done"]
+                    actionMenu: ["Engineer n/a"]
                 })
             }
         }
@@ -93,19 +94,16 @@ export class Select extends React.Component {
         if (e.target.value === 'Decline') {
             ticketState ='DECLINED';
             historyDescription ="Ticket status is changed from " + this.props.ticket.state + " to DECLINED";
-
         }
 
         if (e.target.value === 'Cancel') {
             ticketState ='CANCELLED';
             historyDescription="Ticket status is changed from " + this.props.ticket.state + " to CANCELLED";
-
         }
 
-        if (e.target.value === 'Assign to me') {
+        if (e.target.value === 'Assign to Me') {
             ticketState ='IN PROGRESS';
             historyDescription ="Ticket status is changed from " + this.props.ticket.state + " to IN PROGRESS";
-
         }
 
         if (e.target.value === 'Done') {
@@ -123,23 +121,24 @@ export class Select extends React.Component {
         this.updateTicketHistory(historyDescription);
         this.updateTicket(ticketState);
 
+        // window.location.reload();
+        // history.push('/all-tickets');
     }
 
     updateTicket(ticketState) {
         let ticketDto = this.props.ticket;
         ticketDto.state = ticketState;
 
-        console.log(ticketState);
-
         axios.put('http://localhost:8080/finalproject/tickets/'+ this.props.ticket.id,
             ticketDto,
             JSON.parse(localStorage.getItem('AuthHeader')))
-            .then((response) => {
-                history.push('/all-tickets');
+            .then((responce) => {
+                history.push('/ticket-overview/' + this.props.ticket.id);
             }).catch(error => {
             console.log(error);
         })
         console.log(ticketDto);
+
     }
 
     updateTicketHistory(historyDescription){
@@ -155,7 +154,7 @@ export class Select extends React.Component {
             historyDto,
             JSON.parse(localStorage.getItem('AuthHeader')))
             .then((response) => {
-                history.push('/all-tickets');
+
             }).catch(error => {
             console.log(error);
         })
